@@ -1,19 +1,54 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
-import { motion } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion"
 
 const CITIES = {
-  medan: { left: "9%", top: "10%", name: "Medan", desc: "Birthplace" },
-  jakarta: { left: "27%", top: "73%", name: "Jakarta", desc: "Where I grew up" },
-  malang: { left: "38%", top: "81%", name: "Malang", desc: "Current residence" },
-  jayapura: { left: "98%", top: "70%", name: "Jayapura", desc: "Cultural visit" },
+  jakarta: {
+    left: "27%",
+    top: "73%",
+    name: "Jakarta",
+    desc: "Birthplace",
+    color: "bg-red-500",
+    icon: "bi-geo-alt-fill",
+  },
+  jayapura: {
+    left: "98%",
+    top: "70%",
+    name: "Jayapura",
+    desc: "Raised for a while",
+    color: "bg-blue-500",
+    icon: "bi-geo-fill",
+  },
+  medan: {
+    left: "9%",
+    top: "10%",
+    name: "Medan",
+    desc: "Current home / Residence",
+    color: "bg-green-500",
+    icon: "bi-geo-alt",
+  },
+  malang: {
+    left: "38%",
+    top: "81%",
+    name: "Malang",
+    desc: "Domicile & School",
+    color: "bg-yellow-500",
+    icon: "bi-geo",
+  },
 }
+
+const CITY_ORDER = [
+  "jakarta", // Birthplace
+  "jayapura", // Raised for a while
+  "medan", // Current home / Residence
+  "malang", // Domicile & School
+];
 
 export function IndonesiaMap() {
   const mapRef = useRef<HTMLDivElement>(null)
   const [isMapLoaded, setIsMapLoaded] = useState(false)
-  const [activeCity, setActiveCity] = useState<string | null>(null)
+  const [activeCity, setActiveCity] = useState<string | null>(CITY_ORDER[0])
   const [aspectRatio, setAspectRatio] = useState(16 / 9)
 
   const mapImageUrl =
@@ -28,25 +63,35 @@ export function IndonesiaMap() {
     }
   }, [])
 
+  // Animasi info box urut sesuai CITY_ORDER
   useEffect(() => {
     if (!isMapLoaded) return
-    const cities = Object.keys(CITIES)
     let currentIndex = 0
 
+    setActiveCity(CITY_ORDER[0])
     const interval = setInterval(() => {
-      setActiveCity(cities[currentIndex])
-      currentIndex = (currentIndex + 1) % cities.length
+      currentIndex = (currentIndex + 1) % CITY_ORDER.length
+      setActiveCity(CITY_ORDER[currentIndex])
     }, 3000)
 
     return () => clearInterval(interval)
   }, [isMapLoaded])
 
   return (
-    <div className="w-full">
+    <div className="w-full max-w-3xl mx-auto px-2 sm:px-4 flex flex-col items-stretch min-h-0">
+      {/* Judul di atas map */}
+      <div className="w-full flex justify-center mb-2">
+        <div className="bg-white bg-opacity-90 px-4 py-2 rounded-full shadow-lg">
+          <h3 className="text-base md:text-lg font-bold text-purple-900 text-center">
+            My Life Journey in Indonesia
+          </h3>
+        </div>
+      </div>
       {/* Responsive aspect-ratio wrapper */}
       <div
-        className="relative w-full"
+        className="relative w-full rounded-xl overflow-visible"
         style={{
+          aspectRatio: `${1 / aspectRatio}`,
           paddingBottom: `${aspectRatio * 100}%`,
         }}
       >
@@ -64,98 +109,124 @@ export function IndonesiaMap() {
           <img
             src={mapImageUrl}
             alt="Indonesia Map"
-            className="absolute inset-0 w-full h-full object-contain z-10"
+            className="absolute inset-0 w-full h-full object-contain z-10 select-none pointer-events-none"
+            draggable={false}
           />
 
           {/* City markers */}
-          {Object.entries(CITIES).map(([key, city]) => (
-            <div
-              key={key}
-              className={`absolute z-20 transform -translate-x-1/2 -translate-y-1/2 transition-all duration-500 ${
-                activeCity === key ? "scale-125" : ""
-              }`}
-              style={{ left: city.left, top: city.top }}
-              onMouseEnter={() => setActiveCity(key)}
-              onMouseLeave={() => setActiveCity(null)}
-            >
-              <div className="relative">
+          {CITY_ORDER.map((key) => {
+            const city = CITIES[key];
+            const leftNum = parseFloat(city.left);
+            const topNum = parseFloat(city.top);
+
+            // Default posisi box di atas pin
+            let infoBoxClass = "absolute bottom-full left-1/2 -translate-x-1/2 mb-2";
+            // Khusus Medan, selalu di bawah pin agar tidak ketutup
+            if (key === "medan") {
+              infoBoxClass = "absolute top-full left-1/2 -translate-x-1/2 mt-2";
+            } else {
+              // Jika terlalu atas, pindah ke bawah pin
+              if (topNum < 15) infoBoxClass = "absolute top-full left-1/2 -translate-x-1/2 mt-2";
+              // Jika terlalu kiri, pindah ke kanan pin
+              if (leftNum < 15) infoBoxClass = "absolute bottom-full left-full ml-2 -translate-y-1/2";
+              // Jika terlalu kanan, pindah ke kiri pin
+              if (leftNum > 85) infoBoxClass = "absolute bottom-full right-full mr-2 -translate-y-1/2";
+            }
+
+            return (
+              <div
+                key={key}
+                className="absolute z-20 transform -translate-x-1/2 -translate-y-1/2"
+                style={{ left: city.left, top: city.top }}
+              >
+                <AnimatePresence>
+                  {activeCity === key && (
+                    <motion.div
+                      key={key}
+                      initial={{ opacity: 0, scale: 0.8, y: 10 }}
+                      animate={{ opacity: 1, scale: 1, y: 0 }}
+                      exit={{ opacity: 0, scale: 0.8, y: 10 }}
+                      transition={{ duration: 0.5, type: "spring" }}
+                      className={`${infoBoxClass} bg-white px-2 py-1 rounded shadow-md z-30 min-w-[100px] text-center`}
+                    >
+                      <p className="text-xs md:text-sm font-bold text-gray-800 whitespace-nowrap">
+                        {city.name}
+                      </p>
+                      <p className="text-xs md:text-sm text-gray-600 whitespace-nowrap">
+                        {city.desc}
+                      </p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
                 <div
-                  className={`w-6 h-6 rounded-full flex items-center justify-center ${
-                    activeCity === key ? "bg-purple-500 pulse-glow" : "bg-red-500"
-                  }`}
+                  className={`w-6 h-6 md:w-7 md:h-7 rounded-full flex items-center justify-center ${city.color}`}
                 >
-                  <i className="bi bi-geo-alt-fill text-white text-sm" />
-                </div>
-                <div
-                  className={`absolute top-8 left-1/2 transform -translate-x-1/2 bg-white px-2 py-1 rounded shadow-md transition-opacity duration-300 ${
-                    activeCity === key ? "opacity-100" : "opacity-0"
-                  }`}
-                >
-                  <p className="text-xs font-bold text-gray-800 whitespace-nowrap">
-                    {city.name}
-                  </p>
-                  <p className="text-xs text-gray-600 whitespace-nowrap">
-                    {city.desc}
-                  </p>
+                  <i className="bi bi-geo-alt-fill text-white text-sm md:text-base" />
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
 
-          {/* Title - make sure it's above the map image */}
-          <div className="absolute top-4 left-1/2 transform -translate-x-1/2 bg-white bg-opacity-90 px-4 py-2 rounded-full shadow-lg z-30">
-            <h3 className="text-lg font-bold text-purple-900">My Life Journey in Indonesia</h3>
-          </div>
-
-          {/* Optional Zoom Buttons */}
-          <div className="absolute top-4 right-4 bg-white bg-opacity-80 p-2 rounded shadow-md z-30">
-            <div className="flex flex-col gap-2">
-              <button className="w-8 h-8 flex items-center justify-center rounded hover:bg-gray-200">
-                <i className="bi bi-plus text-gray-700" />
-              </button>
-              <button className="w-8 h-8 flex items-center justify-center rounded hover:bg-gray-200">
-                <i className="bi bi-dash text-gray-700" />
-              </button>
-            </div>
+          {/* Zoom Buttons */}
+          <div className="absolute top-2 right-2 md:top-4 md:right-4 bg-white bg-opacity-80 p-1 md:p-2 rounded shadow-md z-30 flex flex-col gap-1 md:gap-2">
+            <button className="w-7 h-7 md:w-8 md:h-8 flex items-center justify-center rounded hover:bg-gray-200 transition-transform duration-300 hover:scale-110">
+              <i className="bi bi-plus text-gray-700" />
+            </button>
+            <button className="w-7 h-7 md:w-8 md:h-8 flex items-center justify-center rounded hover:bg-gray-200">
+              <i className="bi bi-dash text-gray-700" />
+            </button>
           </div>
 
           {/* Loading Overlay */}
           {!isMapLoaded && (
             <div className="absolute inset-0 flex items-center justify-center bg-purple-50 z-40">
               <div className="flex flex-col items-center">
-                <i className="bi bi-globe text-4xl text-purple-600 animate-pulse mb-2" />
-                <p className="text-gray-700">Loading Indonesian map...</p>
+                <i className="bi bi-globe text-3xl md:text-4xl text-purple-600 animate-pulse mb-2" />
+                <p className="text-gray-700 text-sm md:text-base">Loading Indonesian map...</p>
               </div>
             </div>
           )}
         </motion.div>
       </div>
 
-      {/* Legend */}
-      <div className="mt-4 bg-white p-4 rounded-lg shadow-md">
-        <h4 className="text-sm font-bold text-gray-800 mb-1">Self Introduction</h4>
-        <p className="text-xs text-gray-700 mb-2">Important places in my life:</p>
-        <div className="flex flex-col gap-1">
-          {Object.entries(CITIES).map(([key, city]) => (
-            <div key={key} className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full bg-red-500" />
-              <span className="text-xs text-gray-700">
-                {city.name} - {city.desc}
-              </span>
-            </div>
-          ))}
+      {/* Legend & Personal Info */}
+      <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+        {/* Legend */}
+        <div className="bg-white p-4 rounded-lg shadow-md">
+          <h4 className="text-sm md:text-base font-bold text-gray-800 mb-1">Self Introduction</h4>
+          <p className="text-xs md:text-sm text-gray-700 mb-2">Important places in my life:</p>
+          <div className="flex flex-col gap-1">
+            {Object.entries(CITIES).map(([key, city]) => (
+              <div key={key} className="flex items-center gap-2">
+                <div className={`w-3 h-3 rounded-full ${city.color}`} />
+                <span className="text-xs md:text-sm text-gray-700">
+                  {city.name} - {city.desc}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Personal Info */}
+        <div className="bg-white p-4 rounded-lg shadow-md flex flex-col justify-center">
+          <h4 className="text-sm md:text-base font-bold text-purple-900 mb-1">Alif Cryptovan Sinaga</h4>
+          <p className="text-xs md:text-sm text-gray-700 mb-2">Rotary Youth Exchange Student 2025</p>
+          <div className="flex items-center gap-2 text-xs md:text-sm text-gray-700 mb-1">
+            <i className="bi bi-water" style={{ color: "#4FC3F7" }} />
+            <span>The world's largest maritime country</span>
+          </div>
+          <div className="flex items-center gap-2 text-xs md:text-sm text-gray-700 mb-1">
+            <i className="bi bi-people-fill" style={{ color: "#FFD600" }} />
+            <span>1340+ ethnic groups, rich cultural heritage</span>
+          </div>
+          <div className="flex items-center gap-2 text-xs md:text-sm text-gray-700">
+            <i className="bi bi-moon-stars-fill" style={{ color: "#FFB300" }} />
+            <span>Country with the largest Muslim population in the world</span>
+          </div>
         </div>
       </div>
 
-      {/* Personal Info */}
-      <div className="mt-4 bg-white p-4 rounded-lg shadow-md">
-        <h4 className="text-sm font-bold text-purple-900 mb-1">Alif Sinaga</h4>
-        <p className="text-xs text-gray-700 mb-2">Rotary Youth Exchange Student 2025</p>
-        <div className="flex items-center gap-2 text-xs text-gray-700">
-          <i className="bi bi-heart-fill text-red-500" />
-          <span>Loves Indonesia's diversity</span>
-        </div>
-      </div>
+      <div className="mb-6" />
     </div>
   )
 }
