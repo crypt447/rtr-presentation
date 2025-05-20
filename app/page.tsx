@@ -26,6 +26,7 @@ export default function Home() {
   const [parallaxBromo, setParallaxBromo] = useState(1)
   const [parallaxOther, setParallaxOther] = useState(1)
   const [showOrientationAlert, setShowOrientationAlert] = useState(false)
+  const [showRotaryFocusImg, setShowRotaryFocusImg] = useState(false)
   const nameControls = useAnimation()
   const sectionRefs = useRef<(HTMLElement | null)[]>([])
 
@@ -105,6 +106,33 @@ export default function Home() {
     window.addEventListener("resize", checkOrientation)
     return () => window.removeEventListener("resize", checkOrientation)
   }, [])
+
+  const youthOrgs = [
+    {
+      title: "Rotaract Club of Surabaya Persada",
+      date: "Chartered on July 10, 2019",
+      year: 2019,
+    },
+    {
+      title: "Interact Club of Surabaya Persada",
+      date: "Chartered on September 7, 2019",
+      year: 2019,
+    },
+    {
+      title: "Rotaract Club of Universitas Katolik Dharma Cendika",
+      date: "Chartered on June 22, 2022",
+      year: 2022,
+    },
+  ]
+  const timelineYears = [2019, 2020, 2021, 2022, 2023, 2024]
+  const [timelineStep, setTimelineStep] = useState(0)
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTimelineStep((prev) => (prev >= youthOrgs.length ? 0 : prev + 1))
+    }, 1200)
+    return () => clearInterval(interval)
+  }, [youthOrgs.length])
 
   return (
     <main className="relative">
@@ -581,16 +609,81 @@ export default function Home() {
             <span className="text-lg text-gray-700 ml-2">Active Members</span>
           </div>
         </div>
-        <p className="text-lg text-gray-700 mb-2">• Rotary's Areas of Focus:</p>
-        <ul className="list-disc pl-8 mb-6 text-gray-700">
-          <li>Peacebuilding and Conflict Prevention</li>
-          <li>Disease Prevention and Treatment</li>
-          <li>Water, Sanitation, and Hygiene</li>
-          <li>Maternal and Child Health</li>
-          <li>Basic Education and Literacy</li>
-          <li>Community Economic Development</li>
-          <li>Environment</li>
-        </ul>
+
+        {/* Rotary Focus Design (No Image) */}
+        <div className="my-8 flex flex-col items-center">
+          <span className="mb-4 text-sm text-purple-700 font-semibold">Rotary Areas of Focus</span>
+          <div className="relative w-[340px] h-[340px] flex items-center justify-center mb-4">
+            {/* Center */}
+            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-purple-600 text-white font-bold rounded-full flex items-center justify-center shadow-lg" style={{ width: 110, height: 110 }}>
+              <span className="text-center text-lg">Rotary<br />Focus</span>
+            </div>
+            {/* 7 Focus Areas */}
+            {[
+              { icon: "🕊️", label: "Peace & Conflict" },
+              { icon: "🩺", label: "Disease Prevention" },
+              { icon: "💧", label: "Water & Sanitation" },
+              { icon: "👩‍👧", label: "Maternal & Child Health" },
+              { icon: "📚", label: "Education & Literacy" },
+              { icon: "🌱", label: "Community Dev." },
+              { icon: "🌳", label: "Environment" },
+            ].map((item, i, arr) => {
+              const angle = (i / arr.length) * 2 * Math.PI - Math.PI / 2
+              const radius = 135
+              const x = Math.cos(angle) * radius + 170
+              const y = Math.sin(angle) * radius + 170
+              return (
+                <div
+                  key={item.label}
+                  className="absolute flex flex-col items-center"
+                  style={{
+                    left: x - 40,
+                    top: y - 40,
+                    width: 80,
+                    height: 80,
+                  }}
+                >
+                  <div className="bg-white border-2 border-purple-300 rounded-full w-14 h-14 flex items-center justify-center text-2xl shadow">
+                    {item.icon}
+                  </div>
+                  <span className="text-xs text-purple-800 text-center mt-1 font-semibold leading-tight">{item.label}</span>
+                </div>
+              )
+            })}
+          </div>
+          {/* Button to preview original picture */}
+          <button
+            className="px-4 py-2 bg-purple-600 text-white rounded-lg shadow hover:bg-purple-700 transition mb-2"
+            onClick={() => setShowRotaryFocusImg(true)}
+            type="button"
+          >
+            View Original Picture
+          </button>
+          {/* Modal Preview */}
+          {showRotaryFocusImg && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60">
+              <div className="bg-white rounded-xl shadow-2xl p-4 max-w-lg w-full flex flex-col items-center relative">
+                <button
+                  className="absolute top-2 right-2 text-gray-500 hover:text-purple-700 text-2xl"
+                  onClick={() => setShowRotaryFocusImg(false)}
+                  aria-label="Close"
+                  type="button"
+                >
+                  &times;
+                </button>
+                <Image
+                  src="https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/rotary%20focus%20area-T6PGMUCGC4gE1FtpuSF87gnpWdiGQB.jpg"
+                  alt="Rotary Areas of Focus"
+                  width={600}
+                  height={400}
+                  className="rounded-lg shadow-lg"
+                  style={{ maxWidth: 500, height: "auto" }}
+                />
+              </div>
+            </div>
+          )}
+        </div>
+
         <p className="text-gray-700 italic">
           Rotary Surabaya Persada has guided me to serve and to grow.
           <br />
@@ -626,127 +719,163 @@ export default function Home() {
       </div>
     </motion.div>
 
-    {/* Rotary Focus Image */}
-    <motion.div
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      transition={{ duration: 0.8, delay: 0.6 }}
-      viewport={{ once: true }}
-      className="flex justify-center mb-12"
-    >
-      <Image
-        src="https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/rotary%20focus%20area-T6PGMUCGC4gE1FtpuSF87gnpWdiGQB.jpg"
-        alt="Rotary Areas of Focus"
-        width={800}
-        height={600}
-        className="rounded-lg shadow-lg"
-        priority
-      />
-    </motion.div>
-  </div>
-
-  {/* Exchange Growth Chart */}
-  <div className="bg-white rounded-xl p-8 shadow-lg mt-8 max-w-5xl w-full mx-auto">
-    <h3 className="text-2xl font-semibold text-purple-900 mb-4">Exchange Growth Chart</h3>
-    <div className="flex flex-col md:flex-row gap-8 items-start justify-center">
-      {/* Line Chart */}
-      <div className="flex-1 min-w-0">
-        <div className="bg-white rounded-lg p-4 shadow w-full" style={{ height: 280 }}>
-          <Line
-            data={{
-              labels: ["2022-2023", "2023-2024"],
-              datasets: [
-                {
-                  label: "Inbound",
-                  data: [1, 4],
-                  borderColor: "#a78bfa",
-                  backgroundColor: "rgba(167,139,250,0.2)",
-                  tension: 0.4,
-                  pointBackgroundColor: "#7c3aed",
-                  pointBorderColor: "#7c3aed",
-                  fill: true,
-                },
-                {
-                  label: "Outbound",
-                  data: [1, 4],
-                  borderColor: "#f472b6",
-                  backgroundColor: "rgba(244,114,182,0.2)",
-                  tension: 0.4,
-                  pointBackgroundColor: "#db2777",
-                  pointBorderColor: "#db2777",
-                  fill: true,
-                },
-              ],
-            }}
-            options={{
-              responsive: true,
-              maintainAspectRatio: false,
-              plugins: {
-                legend: { display: true, position: "top" as const },
-                tooltip: { enabled: true },
-              },
-              scales: {
-                y: { beginAtZero: true, ticks: { stepSize: 1 } },
-              },
-            }}
-            height={260}
-            width={600}
-          />
-        </div>
-      </div>
-
-      {/* Pie Chart */}
-      <div className="flex flex-col items-center justify-center w-full md:w-[340px]">
-        <div className="bg-white rounded-lg p-4 shadow w-full flex justify-center">
-          <div className="relative" style={{ width: 260, height: 260 }}>
-            <Pie
+    {/* Exchange Growth Chart */}
+    <div className="bg-white rounded-xl p-8 shadow-lg mt-8 max-w-5xl w-full mx-auto">
+      <h3 className="text-2xl font-semibold text-purple-900 mb-4">Exchange Growth Chart</h3>
+      <div className="flex flex-col md:flex-row gap-8 items-start justify-center">
+        {/* Line Chart */}
+        <div className="flex-1 min-w-0">
+          <div className="bg-white rounded-lg p-4 shadow w-full" style={{ height: 280 }}>
+            <Line
               data={{
-                labels: ["Inbound Total", "Outbound Total"],
+                labels: [
+                  "2019-2020",
+                  "2020-2021",
+                  "2021-2022",
+                  "2022-2023",
+                  "2023-2024"
+                ],
                 datasets: [
                   {
-                    data: [5, 5],
-                    backgroundColor: ["#a78bfa", "#f472b6"],
-                    borderColor: ["#7c3aed", "#db2777"],
-                    borderWidth: 2,
+                    label: "Inbound",
+                    data: [0, 0, 0, 1, 4],
+                    borderColor: "#a78bfa",
+                    backgroundColor: "rgba(167,139,250,0.2)",
+                    tension: 0.4,
+                    pointBackgroundColor: "#7c3aed",
+                    pointBorderColor: "#7c3aed",
+                    fill: true,
+                  },
+                  {
+                    label: "Outbound",
+                    data: [0, 0, 0, 1, 4],
+                    borderColor: "#f472b6",
+                    backgroundColor: "rgba(244,114,182,0.2)",
+                    tension: 0.4,
+                    pointBackgroundColor: "#db2777",
+                    pointBorderColor: "#db2777",
+                    fill: true,
                   },
                 ],
               }}
               options={{
-                responsive: false,
+                responsive: true,
+                maintainAspectRatio: false,
                 plugins: {
-                  legend: { display: true, position: "bottom" as const },
+                  legend: { display: true, position: "top" as const },
                   tooltip: { enabled: true },
                 },
+                scales: {
+                  x: {
+                    title: { display: true, text: "Year" },
+                  },
+                  y: {
+                    beginAtZero: true,
+                    min: 0,
+                    max: 10, // batas atas sumbu Y menjadi 10
+                    ticks: { stepSize: 1 },
+                    title: { display: true, text: "Number of Students" },
+                  },
+                },
               }}
-              width={240}
-              height={240}
+              height={260}
+              width={600}
             />
-            <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-              <span className="text-lg font-bold text-purple-700">Total</span>
-              <span className="text-2xl font-extrabold text-purple-900">10</span>
-            </div>
           </div>
         </div>
-        <div className="mt-4 text-xs text-gray-500 text-center flex gap-4 justify-center">
-          <span className="inline-flex items-center">
-            <span className="inline-block w-3 h-3 rounded-full bg-purple-400 mr-2"></span>Inbound
-          </span>
-          <span className="inline-flex items-center">
-            <span className="inline-block w-3 h-3 rounded-full bg-pink-400 mr-2"></span>Outbound
-          </span>
+
+        {/* Pie Chart */}
+        <div className="flex flex-col items-center justify-center w-full md:w-[340px]">
+          <div className="bg-white rounded-lg p-4 shadow w-full flex justify-center">
+            <div className="relative" style={{ width: 260, height: 260 }}>
+              <Pie
+                data={{
+                  labels: ["Inbound Total", "Outbound Total"],
+                  datasets: [
+                    {
+                      data: [5, 5],
+                      backgroundColor: ["#a78bfa", "#f472b6"],
+                      borderColor: ["#7c3aed", "#db2777"],
+                      borderWidth: 2,
+                    },
+                  ],
+                }}
+                options={{
+                  responsive: false,
+                  plugins: {
+                    legend: { display: true, position: "bottom" as const },
+                    tooltip: { enabled: true },
+                  },
+                }}
+                width={240}
+                height={240}
+              />
+            </div>
+          </div>
+          {/* Total di luar pie chart */}
+          <div className="mt-4 flex flex-col items-center">
+            <span className="text-lg font-bold text-purple-700">Total</span>
+            <span className="text-2xl font-extrabold text-purple-900">10</span>
+          </div>
+          <div className="mt-4 text-xs text-gray-500 text-center flex gap-4 justify-center">
+            <span className="inline-flex items-center">
+              <span className="inline-block w-3 h-3 rounded-full bg-purple-400 mr-2"></span>Inbound
+            </span>
+            <span className="inline-flex items-center">
+              <span className="inline-block w-3 h-3 rounded-full bg-pink-400 mr-2"></span>Outbound
+            </span>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  {/* Youth Organizations */}
-  <div className="bg-white rounded-xl p-8 shadow-lg mt-8 max-w-4xl w-full">
-    <h3 className="text-2xl font-semibold text-purple-900 mb-4">Youth Organizations</h3>
-    <ul className="list-disc pl-6 text-gray-700 space-y-2">
-      <li>Rotaract Club of Surabaya Persada – Chartered on July 10, 2019</li>
-      <li>Interact Club of Surabaya Persada – Chartered on September 7, 2019</li>
-      <li>Rotaract Club of Universitas Katolik Dharma Cendika – Chartered on June 22, 2022</li>
-    </ul>
+    {/* Youth Organizations Timeline */}
+    <div className="bg-white rounded-xl p-8 shadow-lg mt-8 max-w-4xl w-full overflow-x-auto">
+      <h3 className="text-2xl font-semibold text-purple-900 mb-8">Youth Organizations</h3>
+      <div className="relative w-[900px] max-w-full mx-auto h-40 flex items-center">
+        {/* Timeline Line */}
+        <div className="absolute left-16 right-16 top-1/2 h-2 bg-purple-100 rounded z-0" style={{ transform: "translateY(-50%)" }}>
+          <div
+            className="absolute h-2 bg-gradient-to-r from-purple-400 to-purple-600 rounded transition-all duration-700"
+            style={{
+              left: 0,
+              top: 0,
+              width: `calc(${timelineStep / timelineYears.length} * 100%)`,
+              maxWidth: "100%",
+            }}
+          />
+        </div>
+        {/* Year Labels */}
+        <div className="absolute left-16 right-16 top-[60%] flex justify-between z-10 pointer-events-none">
+          {timelineYears.map((year) => (
+            <span key={year} className="text-xs text-purple-700 font-semibold">{year}</span>
+          ))}
+        </div>
+        {/* Timeline Dots & Cards */}
+        <div className="flex w-full justify-between relative z-10">
+          {youthOrgs.map((org, i) => {
+            const isActive = timelineStep > i;
+            return (
+              <div key={org.title} className="flex flex-col items-center w-1/3">
+                {/* Dot */}
+                <div className="relative z-10">
+                  <div className={`rounded-full w-8 h-8 flex items-center justify-center font-bold shadow-lg border-4 transition-all duration-700
+                    ${isActive ? "bg-purple-600 text-white border-purple-200 scale-110 shadow-xl" : "bg-white text-purple-300 border-purple-100 scale-90 opacity-60"}`}>
+                    <span className="text-base">{i + 1}</span>
+                  </div>
+                </div>
+                {/* Card */}
+                <div className={`mt-4 bg-white border border-purple-100 rounded-lg px-4 py-2 shadow text-center transition-all duration-700
+                  ${isActive ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4"}`}>
+                  <div className="font-semibold text-purple-900">{org.title}</div>
+                  <div className="text-xs text-purple-700">{org.date}</div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1308,15 +1437,15 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-5xl sm:text-7xl md:text-8xl font-serif font-bold text-purple-900 mb-8">Thank You</h2>
+            <h2 className="text-5xl sm:text-7xl md:text-8xl font-serif font-bold text-purple-900 mb-8">Merci Beaucoup</h2>
             <p className="text-xl md:text-2xl text-gray-700 leading-relaxed mb-12">
-              To bla bla bla bla bla bla bla:
+              I hope this gave you a glimpse of who I am and what matters to me.
               <br />
-              Thank you bla bla bla bla bla.
-              <br />I cbla bla bla bla bla bla.
+              I'm excited to meet new people, make friends, and grow through this journey.
+              <br />Let’s learn from each other and create meaningful experiences together.
             </p>
             <p className="text-lg md:text-xl text-purple-700 italic">
-              — Alif Sinaga
+              — Alif Cryptovan Sinaga
               <br />
               Rotary Youth Exchange Student 2025
             </p>
