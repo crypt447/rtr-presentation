@@ -426,7 +426,7 @@ export default function Home() {
           >
             <div className="bg-purple-50 rounded-xl overflow-hidden shadow-lg transform transition-transform hover:scale-105 flex flex-col">
               <Image
-                src="/placeholder.svg?height=400&width=600"
+                src="https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/surabaya%20night-w3wSDJ5uoj8kfpFSoPKxYNBOWALh2k.jpg"
                 alt="Rotary Surabaya"
                 width={600}
                 height={400}
@@ -443,7 +443,7 @@ export default function Home() {
             </div>
             <div className="bg-purple-50 rounded-xl overflow-hidden shadow-lg transform transition-transform hover:scale-105 flex flex-col">
               <Image
-                src="/placeholder.svg?height=400&width=600"
+                src="https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/morbecque%20night-E1pGcqPYEws6TODrHaiZWR6dTbIQEQ.avif"
                 alt="Rotary Morbecque"
                 width={600}
                 height={400}
@@ -546,187 +546,209 @@ export default function Home() {
       </section>
 
       {/* Section 5: Rotary Surabaya Persada District 3420 */}
-      <section
-        ref={(el) => (sectionRefs.current[4] = el)}
-        className="min-h-screen flex flex-col justify-center items-center px-4 sm:px-6 py-20 bg-purple-50 relative"
-      >
-        <div className="max-w-4xl z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-4xl sm:text-5xl font-serif font-bold text-purple-900 mb-8">
-              Rotary Surabaya Persada — District 3420
-            </h2>
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            viewport={{ once: true }}
-            className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12"
-          >
-            <div className="bg-white rounded-xl p-8 shadow-lg">
-              <h3 className="text-2xl font-semibold text-purple-900 mb-4">Club Profile</h3>
-              <div className="flex items-baseline mb-4">
-                <span className="text-lg text-gray-700">• </span>
-                <div className="flex items-baseline">
-                  <CountUp end={39} duration={3} className="text-lg text-gray-700 font-semibold" />
-                  <span className="text-lg text-gray-700 ml-2">Active Members</span>
-                </div>
-              </div>
-              <p className="text-lg text-gray-700 mb-2">• Focus Areas:</p>
-              <ul className="list-disc pl-8 mb-6 text-gray-700">
-                <li className="mb-2">Basic Education & Literacy</li>
-                <li className="mb-2">Youth Empowerment</li>
-                <li className="mb-2">Mother & Child Well-being</li>
-              </ul>
-              <p className="text-gray-700 italic">
-                Rotary Surabaya Persadda has guided me to serve and to grow.
-                <br />
-                Now, it's my turn to represent with pride.
-              </p>
-            </div>
-            <div className="bg-white rounded-xl p-8 shadow-lg">
-              <h3 className="text-2xl font-semibold text-purple-900 mb-4">Exchange Statistics</h3>
-              <div className="mb-6">
-                <p className="text-lg font-medium text-purple-800 mb-2">2022–2023</p>
-                <div className="flex justify-between text-gray-700">
-                  <p>Inbound Students:</p>
-                  <CountUp end={1} duration={2} className="font-semibold" />
-                </div>
-                <div className="flex justify-between text-gray-700">
-                  <p>Outbound Students:</p>
-                  <CountUp end={1} duration={2} className="font-semibold" />
-                </div>
-              </div>
-              <div>
-                <p className="text-lg font-medium text-purple-800 mb-2">2023–2024</p>
-                <div className="flex justify-between text-gray-700">
-                  <p>Inbound Students:</p>
-                  <CountUp end={4} duration={2} className="font-semibold" />
-                </div>
-                <div className="flex justify-between text-gray-700">
-                  <p>Outbound Students:</p>
-                  <CountUp end={4} duration={2} className="font-semibold" />
-                </div>
-              </div>
-            </div>
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            viewport={{ once: true }}
-            className="flex justify-center"
-          >
-            <Image
-              src="https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/rotary-district-3420.jpg"
-              alt="Rotary Logo"
-              width={200}
-              height={200}
-              className="rounded-full shadow-lg"
-            />
-          </motion.div>
-        </div>
+<section
+  ref={(el) => (sectionRefs.current[4] = el)}
+  className="min-h-screen flex flex-col justify-center items-center px-4 sm:px-6 py-20 bg-purple-50 relative"
+>
+  <div className="max-w-4xl z-10">
+    <motion.div
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8 }}
+      viewport={{ once: true }}
+      className="text-center mb-16"
+    >
+      <h2 className="text-4xl sm:text-5xl font-serif font-bold text-purple-900 mb-8">
+        Rotary Surabaya Persada — District 3420
+      </h2>
+    </motion.div>
 
-        {/* Exchange Growth Chart - Lebih Keren dengan Line Chart & Pie Chart */}
-        <div className="bg-white rounded-xl p-8 shadow-lg mt-8 max-w-5xl w-full mx-auto">
-          <h3 className="text-2xl font-semibold text-purple-900 mb-4">Exchange Growth Chart</h3>
-          <div className="flex flex-col md:flex-row gap-8 items-start justify-center">
-            {/* Line Chart */}
-            <div className="flex-1 min-w-0">
-              <div className="bg-white rounded-lg p-4 shadow w-full">
-                <Line
-                  data={{
-                    labels: ["2022-2023", "2023-2024"],
-                    datasets: [
-                      {
-                        label: "Inbound",
-                        data: [1, 4],
-                        borderColor: "#a78bfa",
-                        backgroundColor: "rgba(167,139,250,0.2)",
-                        tension: 0.4,
-                        pointBackgroundColor: "#7c3aed",
-                        pointBorderColor: "#7c3aed",
-                        fill: true,
-                      },
-                      {
-                        label: "Outbound",
-                        data: [1, 4],
-                        borderColor: "#f472b6",
-                        backgroundColor: "rgba(244,114,182,0.2)",
-                        tension: 0.4,
-                        pointBackgroundColor: "#db2777",
-                        pointBorderColor: "#db2777",
-                        fill: true,
-                      },
-                    ],
-                  }}
-                  options={{
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                      legend: { display: true, position: "top" as const },
-                      tooltip: { enabled: true },
-                    },
-                    scales: {
-                      y: { beginAtZero: true, ticks: { stepSize: 1 } },
-                    },
-                  }}
-                  height={260}
-                  width={600}
-                />
-              </div>
-            </div>
-            {/* Pie Chart */}
-            <div className="flex flex-col items-center justify-center w-full md:w-[340px]">
-              <div className="bg-white rounded-lg p-4 shadow w-full flex justify-center">
-                <div className="relative" style={{ width: 260, height: 260 }}>
-                  <Pie
-                    data={{
-                      labels: ["Inbound Total", "Outbound Total"],
-                      datasets: [
-                        {
-                          data: [1 + 4, 1 + 4],
-                          backgroundColor: ["#a78bfa", "#f472b6"],
-                          borderColor: ["#7c3aed", "#db2777"],
-                          borderWidth: 2,
-                        },
-                      ],
-                    }}
-                    options={{
-                      responsive: false,
-                      plugins: {
-                        legend: { display: true, position: "bottom" as const },
-                        tooltip: { enabled: true },
-                      },
-                    }}
-                    width={240}
-                    height={240}
-                  />
-                  {/* Label tengah */}
-                  <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-                    <span className="text-lg font-bold text-purple-700">Total</span>
-                    <span className="text-2xl font-extrabold text-purple-900">{1 + 4 + 1 + 4}</span>
-                  </div>
-                </div>
-              </div>
-              <div className="mt-4 text-xs text-gray-500 text-center flex gap-4 justify-center">
-                <span className="inline-flex items-center">
-                  <span className="inline-block w-3 h-3 rounded-full bg-purple-400 mr-2"></span>Inbound
-                </span>
-                <span className="inline-flex items-center">
-                  <span className="inline-block w-3 h-3 rounded-full bg-pink-400 mr-2"></span>Outbound
-                </span>
-              </div>
+    <motion.div
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      transition={{ duration: 0.8, delay: 0.3 }}
+      viewport={{ once: true }}
+      className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12"
+    >
+      {/* Club Profile */}
+      <div className="bg-white rounded-xl p-8 shadow-lg">
+        <h3 className="text-2xl font-semibold text-purple-900 mb-4">Club Profile</h3>
+        <p className="text-lg text-gray-700 mb-2">• Established: May 15, 2019</p>
+        <div className="flex items-baseline mb-4">
+          <span className="text-lg text-gray-700">• </span>
+          <div className="flex items-baseline">
+            <CountUp end={42} duration={3} className="text-lg text-gray-700 font-semibold" />
+            <span className="text-lg text-gray-700 ml-2">Active Members</span>
+          </div>
+        </div>
+        <p className="text-lg text-gray-700 mb-2">• Rotary's Areas of Focus:</p>
+        <ul className="list-disc pl-8 mb-6 text-gray-700">
+          <li>Peacebuilding and Conflict Prevention</li>
+          <li>Disease Prevention and Treatment</li>
+          <li>Water, Sanitation, and Hygiene</li>
+          <li>Maternal and Child Health</li>
+          <li>Basic Education and Literacy</li>
+          <li>Community Economic Development</li>
+          <li>Environment</li>
+        </ul>
+        <p className="text-gray-700 italic">
+          Rotary Surabaya Persada has guided me to serve and to grow.
+          <br />
+          Now, it's my turn to represent with pride.
+        </p>
+      </div>
+
+      {/* Exchange Statistics */}
+      <div className="bg-white rounded-xl p-8 shadow-lg">
+        <h3 className="text-2xl font-semibold text-purple-900 mb-4">Exchange Statistics</h3>
+        <div className="mb-6">
+          <p className="text-lg font-medium text-purple-800 mb-2">2022–2023</p>
+          <div className="flex justify-between text-gray-700">
+            <p>Inbound Students:</p>
+            <CountUp end={1} duration={2} className="font-semibold" />
+          </div>
+          <div className="flex justify-between text-gray-700">
+            <p>Outbound Students:</p>
+            <CountUp end={1} duration={2} className="font-semibold" />
+          </div>
+        </div>
+        <div>
+          <p className="text-lg font-medium text-purple-800 mb-2">2023–2024</p>
+          <div className="flex justify-between text-gray-700">
+            <p>Inbound Students:</p>
+            <CountUp end={4} duration={2} className="font-semibold" />
+          </div>
+          <div className="flex justify-between text-gray-700">
+            <p>Outbound Students:</p>
+            <CountUp end={4} duration={2} className="font-semibold" />
+          </div>
+        </div>
+      </div>
+    </motion.div>
+
+    {/* Rotary Focus Image */}
+    <motion.div
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      transition={{ duration: 0.8, delay: 0.6 }}
+      viewport={{ once: true }}
+      className="flex justify-center mb-12"
+    >
+      <Image
+        src="https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/rotary%20focus%20area-T6PGMUCGC4gE1FtpuSF87gnpWdiGQB.jpg"
+        alt="Rotary Areas of Focus"
+        width={800}
+        height={600}
+        className="rounded-lg shadow-lg"
+        priority
+      />
+    </motion.div>
+  </div>
+
+  {/* Exchange Growth Chart */}
+  <div className="bg-white rounded-xl p-8 shadow-lg mt-8 max-w-5xl w-full mx-auto">
+    <h3 className="text-2xl font-semibold text-purple-900 mb-4">Exchange Growth Chart</h3>
+    <div className="flex flex-col md:flex-row gap-8 items-start justify-center">
+      {/* Line Chart */}
+      <div className="flex-1 min-w-0">
+        <div className="bg-white rounded-lg p-4 shadow w-full" style={{ height: 280 }}>
+          <Line
+            data={{
+              labels: ["2022-2023", "2023-2024"],
+              datasets: [
+                {
+                  label: "Inbound",
+                  data: [1, 4],
+                  borderColor: "#a78bfa",
+                  backgroundColor: "rgba(167,139,250,0.2)",
+                  tension: 0.4,
+                  pointBackgroundColor: "#7c3aed",
+                  pointBorderColor: "#7c3aed",
+                  fill: true,
+                },
+                {
+                  label: "Outbound",
+                  data: [1, 4],
+                  borderColor: "#f472b6",
+                  backgroundColor: "rgba(244,114,182,0.2)",
+                  tension: 0.4,
+                  pointBackgroundColor: "#db2777",
+                  pointBorderColor: "#db2777",
+                  fill: true,
+                },
+              ],
+            }}
+            options={{
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins: {
+                legend: { display: true, position: "top" as const },
+                tooltip: { enabled: true },
+              },
+              scales: {
+                y: { beginAtZero: true, ticks: { stepSize: 1 } },
+              },
+            }}
+            height={260}
+            width={600}
+          />
+        </div>
+      </div>
+
+      {/* Pie Chart */}
+      <div className="flex flex-col items-center justify-center w-full md:w-[340px]">
+        <div className="bg-white rounded-lg p-4 shadow w-full flex justify-center">
+          <div className="relative" style={{ width: 260, height: 260 }}>
+            <Pie
+              data={{
+                labels: ["Inbound Total", "Outbound Total"],
+                datasets: [
+                  {
+                    data: [5, 5],
+                    backgroundColor: ["#a78bfa", "#f472b6"],
+                    borderColor: ["#7c3aed", "#db2777"],
+                    borderWidth: 2,
+                  },
+                ],
+              }}
+              options={{
+                responsive: false,
+                plugins: {
+                  legend: { display: true, position: "bottom" as const },
+                  tooltip: { enabled: true },
+                },
+              }}
+              width={240}
+              height={240}
+            />
+            <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+              <span className="text-lg font-bold text-purple-700">Total</span>
+              <span className="text-2xl font-extrabold text-purple-900">10</span>
             </div>
           </div>
         </div>
-      </section>
+        <div className="mt-4 text-xs text-gray-500 text-center flex gap-4 justify-center">
+          <span className="inline-flex items-center">
+            <span className="inline-block w-3 h-3 rounded-full bg-purple-400 mr-2"></span>Inbound
+          </span>
+          <span className="inline-flex items-center">
+            <span className="inline-block w-3 h-3 rounded-full bg-pink-400 mr-2"></span>Outbound
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {/* Youth Organizations */}
+  <div className="bg-white rounded-xl p-8 shadow-lg mt-8 max-w-4xl w-full">
+    <h3 className="text-2xl font-semibold text-purple-900 mb-4">Youth Organizations</h3>
+    <ul className="list-disc pl-6 text-gray-700 space-y-2">
+      <li>Rotaract Club of Surabaya Persada – Chartered on July 10, 2019</li>
+      <li>Interact Club of Surabaya Persada – Chartered on September 7, 2019</li>
+      <li>Rotaract Club of Universitas Katolik Dharma Cendika – Chartered on June 22, 2022</li>
+    </ul>
+  </div>
+</section>
 
       {/* Section 6: Indonesia: Unity in Diversity */}
       <section
@@ -761,28 +783,52 @@ export default function Home() {
             </div>
             {/* 3 Box di kanan */}
             <motion.div
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.3 }}
-              viewport={{ once: true }}
-              className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full"
-            >
-              <div className="bg-purple-50 rounded-xl p-8 shadow-lg transform transition-transform hover:scale-105">
-                <div className="text-4xl mb-4">🗺️</div>
-                <h3 className="text-xl font-semibold text-purple-900 mb-2">Archipelago Nation</h3>
-                <p className="text-gray-700">17,000+ islands spanning three time zones</p>
-              </div>
-              <div className="bg-purple-50 rounded-xl p-8 shadow-lg transform transition-transform hover:scale-105">
-                <div className="text-4xl mb-4">🦅</div>
-                <h3 className="text-xl font-semibold text-purple-900 mb-2">Garuda Pancasila</h3>
-                <p className="text-gray-700">Symbol of strength and freedom</p>
-              </div>
-              <div className="bg-purple-50 rounded-xl p-8 shadow-lg transform transition-transform hover:scale-105">
-                <div className="text-4xl mb-4">🎭</div>
-                <h3 className="text-xl font-semibold text-purple-900 mb-2">Unity in Diversity</h3>
-                <p className="text-gray-700">"Bhinneka Tunggal Ika" — our national motto</p>
-              </div>
-            </motion.div>
+  initial="hidden"
+  whileInView="visible"
+  viewport={{ once: true, amount: 0.3 }}
+  className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full"
+  variants={{
+    visible: {
+      transition: {
+        staggerChildren: 0.3,
+      },
+    },
+  }}
+>
+  {[
+    {
+      icon: "🛵",
+      title: "Motorbikes Outnumber Cars!",
+      text: "Over 120 million motorcycles shape Indonesia’s unique urban flow, unlike anywhere in Europe.",
+    },
+    {
+      icon: "⛴️",
+      title: "Island-Hopping Daily Routine",
+      text: "With 17,000+ islands, boats and ferries are essential for daily commutes.",
+    },
+    {
+      icon: "🌆",
+      title: "24/7 Urban Energy",
+      text: "Cities buzz nonstop — markets, street food, and nightlife keep the streets alive around the clock.",
+    },
+  ].map(({ icon, title, text }, i) => (
+    <motion.div
+      key={i}
+      className="bg-purple-50 rounded-xl p-8 shadow-lg cursor-pointer"
+      variants={{
+        hidden: { opacity: 0, y: 40, scale: 0.95 },
+        visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.6, ease: "easeOut" } },
+      }}
+      whileHover={{ scale: 1.07, boxShadow: "0 10px 20px rgba(128, 90, 213, 0.4)" }}
+      whileTap={{ scale: 0.95 }}
+      transition={{ type: "spring", stiffness: 300, damping: 20 }}
+    >
+      <div className="text-5xl mb-6">{icon}</div>
+      <h3 className="text-2xl font-semibold text-purple-900 mb-3">{title}</h3>
+      <p className="text-gray-700 text-lg">{text}</p>
+    </motion.div>
+  ))}
+</motion.div>
           </div>
         </div>
       </section>
@@ -809,58 +855,80 @@ export default function Home() {
             </p>
           </motion.div>
           <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            viewport={{ once: true }}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
-          >
-            <div className="bg-purple-50 rounded-xl p-8 shadow-lg transform transition-transform hover:scale-105">
-              <div className="text-4xl mb-4">🏀</div>
-              <h3 className="text-xl font-semibold text-purple-900 mb-2">Basketball</h3>
-              <p className="text-gray-700">Playing on the court gives me energy and builds teamwork.</p>
-            </div>
-            <div className="bg-purple-50 rounded-xl p-8 shadow-lg transform transition-transform hover:scale-105">
-              <div className="text-4xl mb-4">🏐</div>
-              <h3 className="text-xl font-semibold text-purple-900 mb-2">Volleyball</h3>
-              <p className="text-gray-700">I enjoy the thrill and coordination of playing volleyball.</p>
-            </div>
-            <div className="bg-purple-50 rounded-xl p-8 shadow-lg transform transition-transform hover:scale-105">
-              <div className="text-4xl mb-4">🏊‍♂️</div>
-              <h3 className="text-xl font-semibold text-purple-900 mb-2">Swimming</h3>
-              <p className="text-gray-700">I love the calm and focus I get when I swim.</p>
-            </div>
-            <div className="bg-purple-50 rounded-xl p-8 shadow-lg transform transition-transform hover:scale-105">
-              <div className="text-4xl mb-4">💻</div>
-              <h3 className="text-xl font-semibold text-purple-900 mb-2">Coding</h3>
-              <p className="text-gray-700">Creating something from logic and creativity is so rewarding.</p>
-            </div>
-            <div className="bg-purple-50 rounded-xl p-8 shadow-lg transform transition-transform hover:scale-105">
-              <div className="text-4xl mb-4">🎬</div>
-              <h3 className="text-xl font-semibold text-purple-900 mb-2">Watching Movies</h3>
-              <p className="text-gray-700">Movies help me explore emotions, stories, and imagination.</p>
-            </div>
-            <div className="bg-purple-50 rounded-xl p-8 shadow-lg transform transition-transform hover:scale-105">
-              <div className="text-4xl mb-4">🎹</div>
-              <h3 className="text-xl font-semibold text-purple-900 mb-2">Playing Piano</h3>
-              <p className="text-gray-700">Music is my way to relax and express myself.</p>
-            </div>
-            <div className="bg-purple-50 rounded-xl p-8 shadow-lg transform transition-transform hover:scale-105">
-              <div className="text-4xl mb-4">📷</div>
-              <h3 className="text-xl font-semibold text-purple-900 mb-2">Photography</h3>
-              <p className="text-gray-700">Capturing moments helps me see beauty in everyday life.</p>
-            </div>
-            <div className="bg-purple-50 rounded-xl p-8 shadow-lg transform transition-transform hover:scale-105">
-              <div className="text-4xl mb-4">🪂</div>
-              <h3 className="text-xl font-semibold text-purple-900 mb-2">Paragliding</h3>
-              <p className="text-gray-700">Flying through the sky gives me a sense of freedom.</p>
-            </div>
-            <div className="bg-purple-50 rounded-xl p-8 shadow-lg transform transition-transform hover:scale-105">
-              <div className="text-4xl mb-4">✨</div>
-              <h3 className="text-xl font-semibold text-purple-900 mb-2">...and many more!</h3>
-              <p className="text-gray-700">From reading to exploring new skills — I'm always curious.</p>
-            </div>
-          </motion.div>
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      transition={{ duration: 0.8, delay: 0.3 }}
+      viewport={{ once: true }}
+      className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
+    >
+      {/* Basketball */}
+      <div className="bg-purple-50 rounded-xl p-8 shadow-lg transform transition-transform hover:scale-105">
+        <div className="text-4xl mb-4">🏀</div>
+        <h3 className="text-xl font-semibold text-purple-900 mb-2">Basketball</h3>
+        <p className="text-gray-700">I'm part of my high school’s core team. Basketball keeps me energized and sharp.</p>
+      </div>
+
+      {/* Volleyball */}
+      <div className="bg-purple-50 rounded-xl p-8 shadow-lg transform transition-transform hover:scale-105">
+        <div className="text-4xl mb-4">🏐</div>
+        <h3 className="text-xl font-semibold text-purple-900 mb-2">Volleyball</h3>
+        <p className="text-gray-700">I play as a middle blocker and spiker. It's a role that requires strategy, strength, and quick reflexes.</p>
+      </div>
+
+      {/* Swimming */}
+      <div className="bg-purple-50 rounded-xl p-8 shadow-lg transform transition-transform hover:scale-105">
+        <div className="text-4xl mb-4">🏊‍♂️</div>
+        <h3 className="text-xl font-semibold text-purple-900 mb-2">Swimming</h3>
+        <p className="text-gray-700">My favorite strokes are breaststroke and freestyle. Swimming keeps me grounded and refreshed.</p>
+      </div>
+
+      {/* Coding */}
+      <div className="bg-purple-50 rounded-xl p-8 shadow-lg transform transition-transform hover:scale-105">
+        <div className="text-4xl mb-4">💻</div>
+        <h3 className="text-xl font-semibold text-purple-900 mb-2">Coding</h3>
+        <p className="text-gray-700">For me, coding is a space where logic meets creativity — it's how I build, explore, and express ideas through technology.</p>
+      </div>
+
+      {/* Watching Movies */}
+      <div className="bg-purple-50 rounded-xl p-8 shadow-lg transform transition-transform hover:scale-105">
+        <div className="text-4xl mb-4">🎬</div>
+        <h3 className="text-xl font-semibold text-purple-900 mb-2">Watching Movies</h3>
+        <p className="text-gray-700">I love action, adventure, thriler, sci-fi, mystery, romance, and rom-coms — basically everything except horror and boring films!</p>
+      </div>
+
+      {/* Playing Piano */}
+      <div className="bg-purple-50 rounded-xl p-8 shadow-lg transform transition-transform hover:scale-105">
+        <div className="text-4xl mb-4">🎹</div>
+        <h3 className="text-xl font-semibold text-purple-900 mb-2">Playing Piano</h3>
+        <p className="text-gray-700">I practice on an upright piano. Music helps me focus, relax, and express emotions beyond words.</p>
+      </div>
+
+      {/* Photography */}
+      <div className="bg-purple-50 rounded-xl p-8 shadow-lg transform transition-transform hover:scale-105">
+        <div className="text-4xl mb-4">📷</div>
+        <h3 className="text-xl font-semibold text-purple-900 mb-2">Photography</h3>
+        <p className="text-gray-700">
+          I enjoy experimenting with bulb mode to create stunning light trail shots, and I love using the panning technique to capture motion creatively.
+          Macro photography is also one of my favorites — revealing the beauty in the smallest details.
+        </p>
+      </div>
+
+      {/* Paragliding */}
+      <div className="bg-purple-50 rounded-xl p-8 shadow-lg transform transition-transform hover:scale-105">
+        <div className="text-4xl mb-4">🪂</div>
+        <h3 className="text-xl font-semibold text-purple-900 mb-2">Paragliding</h3>
+        <p className="text-gray-700">
+          Soaring through the air with a paraglider gives me an unmatched feeling of freedom. It's not just a hobby — it's a moment where I feel completely alive and connected to the sky.
+        </p>
+      </div>
+
+      {/* And Many More */}
+      <div className="bg-purple-50 rounded-xl p-8 shadow-lg transform transition-transform hover:scale-105">
+        <div className="text-4xl mb-4">✨</div>
+        <h3 className="text-xl font-semibold text-purple-900 mb-2">...and many more!</h3>
+        <p className="text-gray-700">From reading to exploring new skills — I'm always curious and eager to learn something new.</p>
+      </div>
+    </motion.div>
         </div>
       </section>
 
@@ -888,7 +956,7 @@ export default function Home() {
           >
             <div className="bg-white rounded-xl overflow-hidden shadow-lg transform transition-transform hover:scale-105">
               <Image
-                src="/https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/borobudur-temple-oHpgVDf2DRzqG6eO1PUCes8mX1A0qU.jpg"
+                src="https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/borobudur-temple-oHpgVDf2DRzqG6eO1PUCes8mX1A0qU.jpg"
                 alt="Borobudur Temple"
                 width={600}
                 height={400}
@@ -1166,14 +1234,14 @@ export default function Home() {
             </div>
           </motion.div>
 
-          {/* Indonesia in my lens */}
+          {/* Indonesia through my lens */}
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.5 }}
             viewport={{ once: true }}
           >
-            <h3 className="text-2xl font-semibold text-purple-900 mb-6 text-center">Indonesia in my lens</h3>
+            <h3 className="text-2xl font-semibold text-purple-900 mb-6 text-center">Indonesia through my lens</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
               {[
                 {

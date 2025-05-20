@@ -38,12 +38,7 @@ const CITIES = {
   },
 }
 
-const CITY_ORDER = [
-  "jakarta", // Birthplace
-  "jayapura", // Raised for a while
-  "medan", // Current home / Residence
-  "malang", // Domicile & School
-];
+const CITY_ORDER = ["jakarta", "jayapura", "medan", "malang"]
 
 export function IndonesiaMap() {
   const mapRef = useRef<HTMLDivElement>(null)
@@ -63,7 +58,6 @@ export function IndonesiaMap() {
     }
   }, [])
 
-  // Animasi info box urut sesuai CITY_ORDER
   useEffect(() => {
     if (!isMapLoaded) return
     let currentIndex = 0
@@ -79,7 +73,7 @@ export function IndonesiaMap() {
 
   return (
     <div className="w-full max-w-3xl mx-auto px-2 sm:px-4 flex flex-col items-stretch min-h-0">
-      {/* Judul di atas map */}
+      {/* Title */}
       <div className="w-full flex justify-center mb-2">
         <div className="bg-white bg-opacity-90 px-4 py-2 rounded-full shadow-lg">
           <h3 className="text-base md:text-lg font-bold text-purple-900 text-center">
@@ -87,7 +81,8 @@ export function IndonesiaMap() {
           </h3>
         </div>
       </div>
-      {/* Responsive aspect-ratio wrapper */}
+
+      {/* Map container with aspect ratio */}
       <div
         className="relative w-full rounded-xl overflow-visible"
         style={{
@@ -102,10 +97,7 @@ export function IndonesiaMap() {
           animate={{ opacity: 1 }}
           transition={{ duration: 1 }}
         >
-          {/* Background */}
           <div className="absolute inset-0 bg-blue-900 z-0" />
-
-          {/* Responsive map image */}
           <img
             src={mapImageUrl}
             alt="Indonesia Map"
@@ -113,24 +105,26 @@ export function IndonesiaMap() {
             draggable={false}
           />
 
-          {/* City markers */}
+          {/* City Pins + Info Boxes */}
           {CITY_ORDER.map((key) => {
-            const city = CITIES[key];
-            const leftNum = parseFloat(city.left);
-            const topNum = parseFloat(city.top);
+            const city = CITIES[key]
+            const leftNum = parseFloat(city.left)
+            const topNum = parseFloat(city.top)
 
-            // Default posisi box di atas pin
-            let infoBoxClass = "absolute bottom-full left-1/2 -translate-x-1/2 mb-2";
-            // Khusus Medan, selalu di bawah pin agar tidak ketutup
+            let infoBoxClass =
+              "absolute bottom-full left-1/2 -translate-x-1/2 mb-2"
             if (key === "medan") {
-              infoBoxClass = "absolute top-full left-1/2 -translate-x-1/2 mt-2";
+              infoBoxClass = "absolute top-full left-1/2 -translate-x-1/2 mt-2"
             } else {
-              // Jika terlalu atas, pindah ke bawah pin
-              if (topNum < 15) infoBoxClass = "absolute top-full left-1/2 -translate-x-1/2 mt-2";
-              // Jika terlalu kiri, pindah ke kanan pin
-              if (leftNum < 15) infoBoxClass = "absolute bottom-full left-full ml-2 -translate-y-1/2";
-              // Jika terlalu kanan, pindah ke kiri pin
-              if (leftNum > 85) infoBoxClass = "absolute bottom-full right-full mr-2 -translate-y-1/2";
+              if (topNum < 15)
+                infoBoxClass =
+                  "absolute top-full left-1/2 -translate-x-1/2 mt-2"
+              if (leftNum < 15)
+                infoBoxClass =
+                  "absolute bottom-full left-full ml-2 -translate-y-1/2"
+              if (leftNum > 85)
+                infoBoxClass =
+                  "absolute bottom-full right-full mr-2 -translate-y-1/2"
             }
 
             return (
@@ -164,10 +158,10 @@ export function IndonesiaMap() {
                   <i className="bi bi-geo-alt-fill text-white text-sm md:text-base" />
                 </div>
               </div>
-            );
+            )
           })}
 
-          {/* Zoom Buttons */}
+          {/* Zoom controls (non-functional placeholder) */}
           <div className="absolute top-2 right-2 md:top-4 md:right-4 bg-white bg-opacity-80 p-1 md:p-2 rounded shadow-md z-30 flex flex-col gap-1 md:gap-2">
             <button className="w-7 h-7 md:w-8 md:h-8 flex items-center justify-center rounded hover:bg-gray-200 transition-transform duration-300 hover:scale-110">
               <i className="bi bi-plus text-gray-700" />
@@ -177,23 +171,25 @@ export function IndonesiaMap() {
             </button>
           </div>
 
-          {/* Loading Overlay */}
+          {/* Loading indicator */}
           {!isMapLoaded && (
             <div className="absolute inset-0 flex items-center justify-center bg-purple-50 z-40">
               <div className="flex flex-col items-center">
                 <i className="bi bi-globe text-3xl md:text-4xl text-purple-600 animate-pulse mb-2" />
-                <p className="text-gray-700 text-sm md:text-base">Loading Indonesian map...</p>
+                <p className="text-gray-700 text-sm md:text-base">
+                  Loading Indonesian map...
+                </p>
               </div>
             </div>
           )}
         </motion.div>
       </div>
 
-      {/* Legend & Personal Info */}
+      {/* Info Boxes Below Map */}
       <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
-        {/* Legend */}
+        {/* About Me */}
         <div className="bg-white p-4 rounded-lg shadow-md">
-          <h4 className="text-sm md:text-base font-bold text-gray-800 mb-1">Self Introduction</h4>
+          <h4 className="text-sm md:text-base font-bold text-gray-800 mb-1">About Me</h4>
           <p className="text-xs md:text-sm text-gray-700 mb-2">Important places in my life:</p>
           <div className="flex flex-col gap-1">
             {Object.entries(CITIES).map(([key, city]) => (
@@ -207,21 +203,25 @@ export function IndonesiaMap() {
           </div>
         </div>
 
-        {/* Personal Info */}
+        {/* Indonesian Facts */}
         <div className="bg-white p-4 rounded-lg shadow-md flex flex-col justify-center">
-          <h4 className="text-sm md:text-base font-bold text-purple-900 mb-1">Alif Cryptovan Sinaga</h4>
-          <p className="text-xs md:text-sm text-gray-700 mb-2">Rotary Youth Exchange Student 2025</p>
+          <h4 className="text-sm md:text-base font-bold text-purple-900 mb-1">Indonesian Facts</h4>
+          <p className="text-xs md:text-sm text-gray-700 mb-2">Interesting facts about Indonesia:</p>
           <div className="flex items-center gap-2 text-xs md:text-sm text-gray-700 mb-1">
             <i className="bi bi-water" style={{ color: "#4FC3F7" }} />
-            <span>The world's largest maritime country</span>
+            <span>World’s largest archipelagic country</span>
           </div>
           <div className="flex items-center gap-2 text-xs md:text-sm text-gray-700 mb-1">
             <i className="bi bi-people-fill" style={{ color: "#FFD600" }} />
-            <span>1340+ ethnic groups, rich cultural heritage</span>
+            <span>Home to 1340+ ethnic groups</span>
           </div>
           <div className="flex items-center gap-2 text-xs md:text-sm text-gray-700">
-            <i className="bi bi-moon-stars-fill" style={{ color: "#FFB300" }} />
-            <span>Country with the largest Muslim population in the world</span>
+            <i className="bi bi-bank2" style={{ color: "#FF7043" }} />
+            <span>Country with 6 officially recognized religions</span>
+          </div>
+          <div className="flex items-center gap-2 text-xs md:text-sm text-gray-700">
+          <i className="bi bi-globe-americas" style={{ color: "#81C784" }} />
+          <span>Fourth most populous country in the world</span>
           </div>
         </div>
       </div>
