@@ -546,7 +546,7 @@ export default function Home() {
               <div className="p-6 w-full flex-1 flex flex-col justify-center">
                 <h3 className="text-xl font-semibold text-purple-900 mb-2">Family Life</h3>
                 <p className="text-gray-700">
-                  Moments of joy, learning, and togetherness with my loving family in Surabaya.
+                  Moments of joy, learning, and togetherness with my loving family in Indonesia.
                 </p>
               </div>
             </div>
