@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 import Image from "next/image"
 import { motion, useAnimation, AnimatePresence } from "framer-motion"
 import { MapWrapper } from "@/components/map-wrapper"
@@ -55,7 +55,7 @@ export default function Home() {
         const relY = Math.max(0, scrollY - base)
         const scale = 1 + Math.min(relY, 600) / 4000
         setParallaxOther(scale)
-      }
+       }
     }
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
@@ -65,18 +65,20 @@ export default function Home() {
     sectionRefs.current[index]?.scrollIntoView({ behavior: "smooth" })
   }
 
-  const handleKeyDown = (e: KeyboardEvent) => {
+  const handleKeyDown = useCallback((e: KeyboardEvent) => {
     if (e.key === "ArrowDown" && activeSection < sectionRefs.current.length - 1) {
-      sectionRefs.current[activeSection + 1]?.scrollIntoView({ behavior: "smooth" })
+      sectionRefs.current[activeSection + 1]?.scrollIntoView({ behavior: "auto" }) // langsung lompat
+      setActiveSection((prev) => prev + 1)
     } else if (e.key === "ArrowUp" && activeSection > 0) {
-      sectionRefs.current[activeSection - 1]?.scrollIntoView({ behavior: "smooth" })
+      sectionRefs.current[activeSection - 1]?.scrollIntoView({ behavior: "auto" }) // langsung lompat
+      setActiveSection((prev) => prev - 1)
     }
-  }
+  }, [activeSection])
 
   useEffect(() => {
     window.addEventListener("keydown", handleKeyDown)
     return () => window.removeEventListener("keydown", handleKeyDown)
-  }, [activeSection])
+  }, [activeSection, handleKeyDown])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -830,42 +832,51 @@ export default function Home() {
     </div>
 
     {/* Youth Organizations Timeline */}
-    <div className="bg-white rounded-xl p-8 shadow-lg mt-8 max-w-4xl w-full overflow-x-auto">
+    <div className="bg-white rounded-xl p-8 shadow-lg mt-8 max-w-3xl w-full mx-auto">
       <h3 className="text-2xl font-semibold text-purple-900 mb-8">Youth Organizations</h3>
-      <div className="relative w-[900px] max-w-full mx-auto h-40 flex items-center">
+      <div className="relative w-full h-40 flex flex-col justify-center">
         {/* Timeline Line */}
-        <div className="absolute left-16 right-16 top-1/2 h-2 bg-purple-100 rounded z-0" style={{ transform: "translateY(-50%)" }}>
+        <div className="absolute left-8 right-8 top-1/2 h-2 bg-purple-100 rounded z-0" style={{ transform: "translateY(-50%)" }}>
           <div
             className="absolute h-2 bg-gradient-to-r from-purple-400 to-purple-600 rounded transition-all duration-700"
             style={{
               left: 0,
               top: 0,
-              width: `calc(${timelineStep / timelineYears.length} * 100%)`,
+              width: `calc(${timelineStep / (youthOrgs.length - 1)} * 100%)`,
               maxWidth: "100%",
             }}
           />
         </div>
         {/* Year Labels */}
-        <div className="absolute left-16 right-16 top-[60%] flex justify-between z-10 pointer-events-none">
-          {timelineYears.map((year) => (
-            <span key={year} className="text-xs text-purple-700 font-semibold">{year}</span>
-          ))}
+        <div className="absolute left-8 right-8 top-[60%] flex z-10 pointer-events-none" style={{ justifyContent: "space-between" }}>
+          <span className="text-xs text-purple-700 font-semibold">{youthOrgs[0].year}</span>
+          <span className="text-xs text-purple-700 font-semibold">{youthOrgs[1].year}</span>
+          <span className="text-xs text-purple-700 font-semibold">{youthOrgs[2].year}</span>
         </div>
         {/* Timeline Dots & Cards */}
-        <div className="flex w-full justify-between relative z-10">
+        <div className="absolute left-8 right-8 top-0 h-full z-10">
           {youthOrgs.map((org, i) => {
+            // Dot proporsional sesuai jumlah org, bukan tahun
+            const leftPercent = (i / (youthOrgs.length - 1)) * 100;
             const isActive = timelineStep > i;
             return (
-              <div key={org.title} className="flex flex-col items-center w-1/3">
+              <div
+                key={org.title}
+                className="absolute flex flex-col items-center"
+                style={{
+                  left: `calc(${leftPercent}% - 16px)`,
+                  width: 80,
+                }}
+              >
                 {/* Dot */}
-                <div className="relative z-10">
+                <div className="relative z-10 mb-2">
                   <div className={`rounded-full w-8 h-8 flex items-center justify-center font-bold shadow-lg border-4 transition-all duration-700
                     ${isActive ? "bg-purple-600 text-white border-purple-200 scale-110 shadow-xl" : "bg-white text-purple-300 border-purple-100 scale-90 opacity-60"}`}>
                     <span className="text-base">{i + 1}</span>
                   </div>
                 </div>
                 {/* Card */}
-                <div className={`mt-4 bg-white border border-purple-100 rounded-lg px-4 py-2 shadow text-center transition-all duration-700
+                <div className={`mt-2 bg-white border border-purple-100 rounded-lg px-4 py-2 shadow text-center transition-all duration-700
                   ${isActive ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4"}`}>
                   <div className="font-semibold text-purple-900">{org.title}</div>
                   <div className="text-xs text-purple-700">{org.date}</div>
@@ -1307,56 +1318,116 @@ export default function Home() {
               {/* School Memory */}
               <div className="relative bg-white p-3 shadow-lg transform rotate-[1deg] hover:rotate-0 transition-all duration-300">
                 <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-8 h-4 bg-gray-300 opacity-80"></div>
-                <Image
-                  src="https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/i2aspo-1-bjTTnrxLXyrePuI2ySnvBXmYQyvPjo.jpg"
-                  alt="School memory"
-                  width={400}
-                  height={400}
-                  className="w-full h-auto"
-                />
+                <div className="flex flex-col gap-2">
+                  <Image
+                    src="https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/i2aspo-1-bjTTnrxLXyrePuI2ySnvBXmYQyvPjo.jpg"
+                    alt="Competitions X Memory"
+                    width={400}
+                    height={400}
+                    className="w-full aspect-square object-cover rounded"
+                  />
+                  <Image
+                    src="https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/wyf-4-HRneAvVagJq94UOdTzZQFBA6wLmTEq.jpg"
+                    alt="School memory"
+                    width={400}
+                    height={400}
+                    className="w-full aspect-square object-cover rounded"
+                  />
+                  <Image
+                    src="https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/wyf-3-zG3DMmpGS7DiZT9m7gvwr717yB48Fh.jpg"
+                    alt="School memory"
+                    width={400}
+                    height={400}
+                    className="w-full aspect-square object-cover rounded"
+                  />
+                </div>
                 <p className="mt-2 text-center text-sm text-gray-600 font-handwriting">School memory</p>
               </div>
-              {/* Family Polaroid (besar, 3 foto vertikal) */}
+              {/* Family Polaroid */}
               <div className="relative bg-white p-5 shadow-lg transform rotate-[-3deg] hover:rotate-0 transition-all duration-300 flex flex-col items-center"
                 style={{ minWidth: 0, width: "100%", maxWidth: 340 }}
               >
                 <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-10 h-5 bg-gray-300 opacity-80"></div>
-                <div className="flex flex-col gap-3">
+                <div className="flex flex-col gap-2 w-full">
                   <Image
                     src="https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/fam1-oW0ASyvvxJtpHhBvLxowopjIgClv5n.jpg"
                     alt="Family moment 1"
-                    width={180}
-                    height={180}
-                    className="rounded w-40 h-40 object-cover"
+                    width={400}
+                    height={400}
+                    className="w-full aspect-square object-cover rounded"
                   />
                   <Image
                     src="https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/fam2-uhTGEYOiLuJ7DM0hRPayAxOQs48XeM.jpg"
                     alt="Family moment 2"
-                    width={180}
-                    height={180}
-                    className="rounded w-40 h-40 object-cover"
+                    width={400}
+                    height={400}
+                    className="w-full aspect-square object-cover rounded"
                   />
                   <Image
                     src="https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/fam3-0lx6rUC9wy2CoJdfJ6h4jWPqCbh7qH.jpg"
                     alt="Family moment 3"
-                    width={180}
-                    height={180}
-                    className="rounded w-40 h-40 object-cover"
+                    width={400}
+                    height={400}
+                    className="w-full aspect-square object-cover rounded"
                   />
                 </div>
-                <p className="mt-3 text-center text-base text-gray-600 font-handwriting">With family</p>
+                <p className="mt-3 text-center text-base text-gray-600 font-handwriting">With Family</p>
               </div>
               {/* Friend Memory */}
               <div className="relative bg-white p-3 shadow-lg transform rotate-[2deg] hover:rotate-0 transition-all duration-300">
                 <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-8 h-4 bg-gray-300 opacity-80"></div>
-                <Image
-                  src="https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/wyf-2.jpg"
-                  alt="My friend"
-                  width={400}
-                  height={400}
-                  className="w-full h-auto"
-                />
-                <p className="mt-2 text-center text-sm text-gray-600 font-handwriting">My friend</p>
+                <div className="flex flex-col gap-2">
+                  <Image
+                    src="https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/wyf-2.jpg"
+                    alt="My friend"
+                    width={400}
+                    height={400}
+                    className="w-full aspect-square object-cover rounded"
+                  />
+                  <Image
+                    src="https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/i2aspo-3-TcrsBCJFAIahVFMzgJMU4A6uFrdshb.jpg"
+                    alt="My friend"
+                    width={400}
+                    height={400}
+                    className="w-full aspect-square object-cover rounded"
+                  />
+                  <Image
+                    src="https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/aug-2-TFs3zmYOAo2obL29UuaOyWPzhuaQEk.jpg"
+                    alt="School event"
+                    width={400}
+                    height={400}
+                    className="w-full aspect-square object-cover rounded"
+                  />
+                </div>
+                <p className="mt-2 text-center text-sm text-gray-600 font-handwriting">My Friend</p>
+              </div>
+              {/* New Memory Card */}
+              <div className="relative bg-white p-3 shadow-lg transform rotate-[-2deg] hover:rotate-0 transition-all duration-300">
+                <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-8 h-4 bg-gray-300 opacity-80"></div>
+                <div className="flex flex-col gap-2">
+                  <Image
+                    src="https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/aug-1-LEAfX0netme66jcRPmVg0ZhP17CQ5w.jpg"
+                    alt="August moment"
+                    width={400}
+                    height={400}
+                    className="w-full aspect-square object-cover rounded"
+                  />
+                  <Image
+                    src="https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/i2aspo-2-zus6Lm0s3ANt6MUHWOAMnxurKts3wx.jpg"
+                    alt="School event"
+                    width={400}
+                    height={400}
+                    className="w-full aspect-square object-cover rounded"
+                  />
+                  <Image
+                    src="https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/wyf-1.jpg"
+                    alt="My friend"
+                    width={400}
+                    height={400}
+                    className="w-full aspect-square object-cover rounded"
+                  />
+                </div>
+                <p className="mt-2 text-center text-sm text-gray-600 font-handwriting">School + Event</p>
               </div>
               {/* Spacer (empty) */}
               <div className="hidden sm:block" />
