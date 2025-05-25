@@ -694,31 +694,39 @@ export default function Home() {
       </div>
 
       {/* Exchange Statistics */}
-      <div className="bg-white rounded-xl p-8 shadow-lg">
-        <h3 className="text-2xl font-semibold text-purple-900 mb-4">Exchange Statistics</h3>
-        <div className="mb-6">
-          <p className="text-lg font-medium text-purple-800 mb-2">2022–2023</p>
-          <div className="flex justify-between text-gray-700">
-            <p>Inbound Students:</p>
-            <CountUp end={1} duration={2} className="font-semibold" />
-          </div>
-          <div className="flex justify-between text-gray-700">
-            <p>Outbound Students:</p>
-            <CountUp end={1} duration={2} className="font-semibold" />
-          </div>
-        </div>
-        <div>
-          <p className="text-lg font-medium text-purple-800 mb-2">2023–2024</p>
-          <div className="flex justify-between text-gray-700">
-            <p>Inbound Students:</p>
-            <CountUp end={4} duration={2} className="font-semibold" />
-          </div>
-          <div className="flex justify-between text-gray-700">
-            <p>Outbound Students:</p>
-            <CountUp end={4} duration={2} className="font-semibold" />
-          </div>
-        </div>
-      </div>
+<div className="bg-white rounded-xl p-8 shadow-lg">
+  <h3 className="text-2xl font-semibold text-purple-900 mb-4">Exchange Statistics</h3>
+  <div className="mb-6">
+    <p className="text-lg font-medium text-purple-800 mb-2">2022–2023</p>
+    <div className="flex justify-between text-gray-700">
+      <p>Inbound Students:</p>
+      <CountUp end={1} duration={2} className="font-semibold" />
+    </div>
+    <div className="flex justify-between text-gray-700">
+      <p>Outbound Students:</p>
+      <CountUp end={1} duration={2} className="font-semibold" />
+    </div>
+  </div>
+  <div>
+    <p className="text-lg font-medium text-purple-800 mb-2">2023–2024</p>
+    <div className="flex justify-between text-gray-700">
+      <p>Inbound Students:</p>
+      <CountUp end={4} duration={2} className="font-semibold" />
+    </div>
+    <div className="flex justify-between text-gray-700">
+      <p>Outbound Students:</p>
+      <CountUp end={4} duration={2} className="font-semibold" />
+    </div>
+  </div>
+
+  {/* Family Rotary Info */}
+  <div className="mt-6 border-t pt-4">
+    <p className="text-lg font-medium text-purple-800 mb-2">Family Rotary Involvement</p>
+    <p className="text-gray-700">
+      My mother has been an active Rotarian with <span className="font-semibold">Rotary Club of Surabaya Persada</span> since <span className="font-semibold">2024 - Present</span>.
+    </p>
+  </div>
+</div>
     </motion.div>
 
     {/* Exchange Growth Chart */}
