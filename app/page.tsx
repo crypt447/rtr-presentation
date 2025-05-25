@@ -173,6 +173,25 @@ export default function Home() {
         </div>
       )}
 
+      {/* Logo Parallax di Pojok Kanan Atas */}
+<div
+  className="absolute top-6 right-6 sm:top-10 sm:right-10 z-10 transform-gpu motion-safe:animate-float-slow opacity-70"
+>
+  <div className="flex gap-4 items-center">
+    <img
+      src="https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/united%20%20for%20good-mtjSIycaRfkPQIldLHDZOcLdfb1TjV.png"
+      alt="Unite for Good"
+      className="w-20 sm:w-28 lg:w-32 pointer-events-none select-none"
+    />
+    <img
+      src="https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/rotrary%20d3420-CDkhjW0nRxChx7VHNrw42ZBULp8TTE.jpg"
+      alt="Rotary Logo"
+      className="w-20 sm:w-28 lg:w-32 pointer-events-none select-none"
+    />
+  </div>
+</div>
+
+
       {/* Navigation Dots */}
       <div className="fixed right-2 sm:right-4 md:right-8 top-1/2 transform -translate-y-1/2 z-50 hidden md:block">
         <div className="flex flex-col gap-3 md:gap-4">
