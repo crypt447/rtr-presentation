@@ -1521,35 +1521,60 @@ export default function Home() {
 
       {/* Section 10: Closing: Thank You */}
       <section
-        ref={(el) => (sectionRefs.current[10] = el)}
-        className="min-h-screen flex flex-col justify-center items-center px-4 sm:px-6 py-20 bg-gradient-to-b from-white to-purple-50 relative"
-      >
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-0 left-0 w-full h-full bg-[url('/placeholder.svg?height=1080&width=1920')] bg-cover bg-center opacity-10 transform scale-110"></div>
+  ref={(el) => (sectionRefs.current[10] = el)}
+  className="min-h-screen flex flex-col justify-center items-center px-4 sm:px-6 py-20 bg-gradient-to-b from-white to-purple-50 relative"
+>
+  <div className="absolute inset-0 overflow-hidden">
+    <div className="absolute top-0 left-0 w-full h-full bg-[url('/placeholder.svg?height=1080&width=1920')] bg-cover bg-center opacity-10 transform scale-110"></div>
+  </div>
+
+  <div className="max-w-6xl w-full z-10 relative">
+    <motion.div
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8 }}
+      viewport={{ once: true }}
+      className="mb-16"
+    >
+      <div className="flex flex-col lg:flex-row items-center lg:items-start gap-10 text-left">
+        {/* Foto Kiri */}
+        <div className="flex-shrink-0 relative">
+          <img
+            src="https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/me-rM1nnLT7IJG1kDd5HRzk4gI7c9FaSL.jpg"
+            alt="Alif Cryptovan Sinaga"
+            className="w-40 sm:w-52 md:w-60 lg:w-72 rounded-full shadow-xl ring-4 ring-purple-200"
+          />
+          {/* Dekorasi kecil */}
+          <div className="absolute -top-4 -right-4 text-3xl animate-bounce">✨</div>
         </div>
-        <div className="max-w-4xl z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-5xl sm:text-7xl md:text-8xl font-serif font-bold text-purple-900 mb-8">Merci Beaucoup</h2>
-            <p className="text-xl md:text-2xl text-gray-700 leading-relaxed mb-12">
-              I hope this gave you a glimpse of who I am and what matters to me.
-              <br />
-              I'm excited to meet new people, make friends, and grow through this journey.
-              <br />Let’s learn from each other and create meaningful experiences together.
-            </p>
-            <p className="text-lg md:text-xl text-purple-700 italic">
-              — Alif Cryptovan Sinaga
-              <br />
-              Rotary Youth Exchange Student 2025
-            </p>
-          </motion.div>
+
+        {/* Teks Kanan */}
+        <div className="flex flex-col justify-start lg:w-2/3 relative">
+          {/* Gradient Behind Merci Beaucoup */}
+          <h2 className="text-6xl sm:text-8xl md:text-9xl font-serif font-bold text-purple-900 mb-6 relative z-10">
+            <span className="relative inline-block">
+              <span className="absolute inset-0 bg-gradient-to-r from-pink-200 via-purple-100 to-pink-200 rounded-lg blur-sm opacity-40 -z-10"></span>
+              Merci Beaucoup
+            </span>
+          </h2>
+
+          <p className="text-lg sm:text-xl text-gray-700 leading-relaxed mb-6">
+            I hope this gave you a glimpse of who I am and what matters to me.
+            <br />
+            I'm excited to meet new people, make friends, and grow through this journey.
+            <br />
+            Let’s learn from each other and create meaningful experiences together.
+          </p>
+          <p className="text-lg sm:text-xl text-purple-700 italic">
+            — Alif Cryptovan Sinaga
+            <br />
+            Rotary Youth Exchange Student 2025
+          </p>
         </div>
-      </section>
+      </div>
+    </motion.div>
+  </div>
+</section>
     </main>
   )
 }
