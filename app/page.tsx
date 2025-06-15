@@ -1,12 +1,11 @@
-"use client"
+'use client';
 
-import { useCallback, useEffect, useRef, useState } from "react"
-import Image from "next/image"
-import { motion, useAnimation, AnimatePresence } from "framer-motion"
-import { MapWrapper } from "@/components/map-wrapper"
-import { CountUp } from "@/components/count-up"
-import { Line } from "react-chartjs-2"
-import { Pie } from "react-chartjs-2"
+import { useState, useCallback, useEffect, useRef } from 'react';
+import Image from 'next/image';
+import { motion, useAnimation, AnimatePresence } from 'framer-motion';
+import { MapWrapper } from '@/components/map-wrapper';
+import { CountUp } from '@/components/count-up';
+import { Line, Pie } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -16,20 +15,30 @@ import {
   ArcElement,
   Tooltip,
   Legend,
-} from "chart.js"
+} from 'chart.js';
 
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, ArcElement, Tooltip, Legend)
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  ArcElement,
+  Tooltip,
+  Legend
+);
 
 export default function Home() {
-  const [activeSection, setActiveSection] = useState(0)
-  const [nameToggle, setNameToggle] = useState(false)
-  const [parallaxBromo, setParallaxBromo] = useState(1)
-  const [parallaxOther, setParallaxOther] = useState(1)
-  const [showOrientationAlert, setShowOrientationAlert] = useState(false)
-  const [showRotaryFocusImg, setShowRotaryFocusImg] = useState(false)
-  const nameControls = useAnimation()
-  const sectionRefs = useRef<(HTMLElement | null)[]>([])
-
+  const [activeSection, setActiveSection] = useState(0);
+  const [nameToggle, setNameToggle] = useState(false);
+  const [parallaxBromo, setParallaxBromo] = useState(1);
+  const [parallaxOther, setParallaxOther] = useState(1);
+  const [showOrientationAlert, setShowOrientationAlert] = useState(false);
+  const [showRotaryFocusImg, setShowRotaryFocusImg] = useState(false);
+  const [showImageModal, setShowImageModal] = useState(false);
+  const [modalImageSrc, setModalImageSrc] = useState('');
+  const [modalImageAlt, setModalImageAlt] = useState('');
+  const nameControls = useAnimation();
+  const sectionRefs = useRef<(HTMLElement | null)[]>([]);
   // Auto toggle name effect
   useEffect(() => {
     const toggleInterval = setInterval(() => {
@@ -185,6 +194,11 @@ export default function Home() {
     />
     <img
       src="https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/rotrary%20d3420-CDkhjW0nRxChx7VHNrw42ZBULp8TTE.jpg"
+      alt="Rotary Logo"
+      className="w-20 sm:w-28 lg:w-32 pointer-events-none select-none"
+    />
+    <img
+      src="https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/interact_SuPer-IvHa9HeGwnsXCvRyTtGrMYt7UDwCy3.png"
       alt="Rotary Logo"
       className="w-20 sm:w-28 lg:w-32 pointer-events-none select-none"
     />
@@ -626,7 +640,7 @@ export default function Home() {
         <div className="flex items-baseline mb-4">
           <span className="text-lg text-gray-700">• </span>
           <div className="flex items-baseline">
-            <CountUp end={42} duration={3} className="text-lg text-gray-700 font-semibold" />
+            <CountUp end={45} duration={3} className="text-lg text-gray-700 font-semibold" />
             <span className="text-lg text-gray-700 ml-2">Active Members</span>
           </div>
         </div>
@@ -713,38 +727,135 @@ export default function Home() {
       </div>
 
       {/* Exchange Statistics */}
-<div className="bg-white rounded-xl p-8 shadow-lg">
-  <h3 className="text-2xl font-semibold text-purple-900 mb-4">Exchange Statistics</h3>
-  <div className="mb-6">
-    <p className="text-lg font-medium text-purple-800 mb-2">2022–2023</p>
-    <div className="flex justify-between text-gray-700">
-      <p>Inbound Students:</p>
-      <CountUp end={1} duration={2} className="font-semibold" />
-    </div>
-    <div className="flex justify-between text-gray-700">
-      <p>Outbound Students:</p>
-      <CountUp end={1} duration={2} className="font-semibold" />
-    </div>
-  </div>
-  <div>
-    <p className="text-lg font-medium text-purple-800 mb-2">2023–2024</p>
-    <div className="flex justify-between text-gray-700">
-      <p>Inbound Students:</p>
-      <CountUp end={4} duration={2} className="font-semibold" />
-    </div>
-    <div className="flex justify-between text-gray-700">
-      <p>Outbound Students:</p>
-      <CountUp end={4} duration={2} className="font-semibold" />
-    </div>
+<div className="p-4 rounded-xl bg-white shadow">
+  <h2 className="text-xl font-semibold text-purple-800 mb-2">Exchange Statistics</h2>
+
+  <div className="text-gray-800 mb-4">
+    <p><strong>2022–2023</strong></p>
+    <p>Inbound Students: 1</p>
+    <p>Outbound Students: 1</p>
+
+    <p className="mt-3"><strong>2023–2024</strong></p>
+    <p>Inbound Students: 4</p>
+    <p>Outbound Students: 4</p>
   </div>
 
-  {/* Family Rotary Info */}
-  <div className="mt-6 border-t pt-4">
-    <p className="text-lg font-medium text-purple-800 mb-2">Family Rotary Involvement</p>
-    <p className="text-gray-700">
-      My mother has been an active Rotarian with <span className="font-semibold">Rotary Club of Surabaya Persada</span> since <span className="font-semibold">2024 - Present</span>.
-    </p>
-  </div>
+  {/* Garis pembatas */}
+  <hr className="border-t border-gray-300 my-4" />
+
+  {/* Judul Fokus Area */}
+<h4 className="text-lg font-semibold text-purple-800 mb-2">
+  🎯 Focus Areas of Rotary Surabaya Persada
+</h4>
+
+<ul className="ml-4 text-gray-800 space-y-2">
+
+  {/* Literacy */}
+  <li className="flex gap-2 items-start">
+    📚 <span className="flex flex-col gap-2">
+      <strong>Basic Education & Literacy</strong>
+      <img
+        src="https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/literacy%20rotary-ddV9mzlPRg23d4Gx2W6bv4ElyLnXmH.jpg"
+        alt="Literacy Rotary"
+        className="w-32 h-32 object-cover rounded-lg shadow-md cursor-pointer hover:scale-105 transition"
+        onClick={() => {
+          setModalImageSrc("https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/literacy%20rotary-ddV9mzlPRg23d4Gx2W6bv4ElyLnXmH.jpg")
+          setModalImageAlt("Basic Education & Literacy")
+          setShowImageModal(true)
+        }}
+      />
+    </span>
+  </li>
+
+  {/* Youth Empowerment */}
+  <li className="flex gap-2 items-start">
+    👧 <span>
+      <strong>Youth Empowerment</strong><br />
+      <span className="ml-5 block">
+        Rotary Surabaya Persada actively supports youth through:
+        <ul className="list-disc list-inside text-sm mt-1 ml-2 space-y-4">
+
+          {/* LTEP */}
+          <li className="flex items-center gap-4">
+            <span className="min-w-[220px]">📌 <strong>LTEP</strong> (Long-Term Exchange Program)</span>
+            <img
+              src="https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/RYE-text-color-EN22_20220718-002-xvjGSRStnwD1t1CT6CQfygOHPUPJIO.png"
+              alt="LTEP Rotary Youth Exchange"
+              className="w-24 h-24 object-contain rounded-lg shadow-md cursor-pointer hover:scale-105 transition"
+              onClick={() => {
+                setModalImageSrc("https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/RYE-text-color-EN22_20220718-002-xvjGSRStnwD1t1CT6CQfygOHPUPJIO.png");
+                setModalImageAlt("LTEP Rotary Youth Exchange");
+                setShowImageModal(true);
+              }}
+            />
+          </li>
+
+          {/* STEP */}
+          <li className="flex items-center gap-4">
+            <span className="min-w-[220px]">📌 <strong>STEP</strong> – Face-to-Face & Camp programs</span>
+            <img
+              src="https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/RYE-text-color-EN22_20220718-002-xvjGSRStnwD1t1CT6CQfygOHPUPJIO.png"
+              alt="STEP Rotary Youth Exchange"
+              className="w-24 h-24 object-contain rounded-lg shadow-md cursor-pointer hover:scale-105 transition"
+              onClick={() => {
+                setModalImageSrc("https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/RYE-text-color-EN22_20220718-002-xvjGSRStnwD1t1CT6CQfygOHPUPJIO.png");
+                setModalImageAlt("STEP Rotary Youth Exchange");
+                setShowImageModal(true);
+              }}
+            />
+          </li>
+
+          {/* Clubs */}
+          {[
+            {
+              label: "Rotaract Club Surabaya Persada",
+              src: "https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/Logo_Creator__print%20%283%29-TFDVvy9yDeqEtTyxNoHRk6zlS8u2h2.jpeg",
+              alt: "Rotaract Surabaya Persada",
+            },
+            {
+              label: "Rotaract Club UKDC",
+              src: "https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/rac%20ukdc-QSsKfqTzyGFCrMsYsT0gJ9se27YoN4.png",
+              alt: "Rotaract UKDC",
+            },
+            {
+              label: "Interact Club Surabaya Persada",
+              src: "https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/interact_SuPer-IvHa9HeGwnsXCvRyTtGrMYt7UDwCy3.png",
+              alt: "Interact Surabaya Persada",
+            },
+          ].map((item, index) => (
+            <li key={index} className="flex items-center gap-4">
+              <span className="min-w-[220px]">📌 <strong>{item.label}</strong></span>
+              <img
+                src={item.src}
+                alt={item.alt}
+                className="w-24 h-24 object-contain rounded-lg shadow-md cursor-pointer hover:scale-105 transition"
+                onClick={() => {
+                  setModalImageSrc(item.src);
+                  setModalImageAlt(item.alt);
+                  setShowImageModal(true);
+                }}
+              />
+            </li>
+          ))}
+        </ul>
+      </span>
+    </span>
+  </li>
+
+  {/* Maternal & Child Health */}
+  <li className="flex gap-2 items-start">
+    👶 <span><strong>Maternal & Child Health</strong></span>
+  </li>
+</ul>
+
+  {/* Garis pembatas */}
+  <hr className="border-t border-gray-300 my-4" />
+
+  {/* Family Involvement */}
+  <h4 className="text-lg font-semibold text-purple-800 mb-1">Family Rotary Involvement</h4>
+  <p className="text-gray-800">
+    My mother has been an active Rotarian with <strong>Rotary Club of Surabaya Persada</strong> since <strong>2024 – Present</strong>.
+  </p>
 </div>
     </motion.div>
 
