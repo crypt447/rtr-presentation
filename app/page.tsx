@@ -17,6 +17,7 @@ import {
   Legend,
 } from 'chart.js';
 
+// Register chart elements & plugins (WAJIB untuk Chart.js v3 ke atas)
 ChartJS.register(
   CategoryScale,
   LinearScale,
