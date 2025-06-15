@@ -1,5 +1,5 @@
 {
-  "name": "alif-exchange-journey",
+  "name": "rtr-presentation",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -60,6 +60,7 @@
     "recharts": "2.15.0",
     "sonner": "1.7.1",
     "tailwind-merge": "^2.5.5",
+    "tailwindcss": "3.4.17",
     "tailwindcss-animate": "1.0.7",
     "vaul": "0.9.6",
     "zod": "3.24.1"
@@ -73,7 +74,6 @@
     "eslint": "8.0.0",
     "eslint-config-next": "14.0.4",
     "postcss": "^8.5",
-    "tailwindcss": "3.3.0",
     "tailwindcss-animate": "1.0.7",
     "typescript": "^5"
   }

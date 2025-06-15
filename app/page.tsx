@@ -1,11 +1,10 @@
 'use client';
 
-import { useState, useCallback, useEffect, useRef } from 'react';
-import Image from 'next/image';
-import { motion, useAnimation, AnimatePresence } from 'framer-motion';
-import { MapWrapper } from '@/components/map-wrapper';
-import { CountUp } from '@/components/count-up';
-import { Line, Pie } from 'react-chartjs-2';
+import { useState, useCallback, useEffect, useRef } from 'react'; // Hooks React
+import Image from 'next/image'; // Optimasi gambar Next.js
+import { motion, useAnimation, AnimatePresence } from 'framer-motion'; // Animasi
+import { MapWrapper } from '@/components/map-wrapper'; // Komponen peta custom (buatanmu)
+import { CountUp } from '@/components/count-up'; // Komponen penghitung animasi (buatanmu)
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -15,15 +14,16 @@ import {
   ArcElement,
   Tooltip,
   Legend,
-} from 'chart.js';
+} from 'chart.js'; // Chart.js dan elemennya
+import { Line, Pie } from 'react-chartjs-2'; // Wrapper React untuk Chart.js
 
-// Register chart elements & plugins (WAJIB untuk Chart.js v3 ke atas)
+// Register Chart.js agar semua jenis chart bisa dipakai (WAJIB!)
 ChartJS.register(
   CategoryScale,
   LinearScale,
   PointElement,
   LineElement,
-  ArcElement,
+  ArcElement, // Penting untuk Pie chart!
   Tooltip,
   Legend
 );
