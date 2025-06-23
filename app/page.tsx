@@ -845,189 +845,88 @@ export default function Home() {
 
   {/* Maternal & Child Health */}
   <li className="flex gap-2 items-start">
-    👶 <span><strong>Maternal & Child Health</strong></span>
-  </li>
-</ul>
+                👧 <span>
+                  <strong>Youth Empowerment</strong><br />
+                  <span className="ml-5 block">
+                    Rotary Surabaya Persada actively supports youth through:
+                    <ul className="list-disc list-inside text-sm mt-1 ml-2 space-y-4">
+                      {[
+                        {
+                          label: "📌 LTEP (Long-Term Exchange Program)",
+                          src: "https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/RYE-text-color-EN22_20220718-002-xvjGSRStnwD1t1CT6CQfygOHPUPJIO.png",
+                          alt: "LTEP Rotary Youth Exchange"
+                        },
+                        {
+                          label: "📌 STEP – Face-to-Face & Camp programs",
+                          src: "https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/RYE-text-color-EN22_20220718-002-xvjGSRStnwD1t1CT6CQfygOHPUPJIO.png",
+                          alt: "STEP Rotary Youth Exchange"
+                        },
+                        {
+                          label: "📌 Rotaract Club Surabaya Persada",
+                          src: "https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/Logo_Creator__print%20%283%29-TFDVvy9yDeqEtTyxNoHRk6zlS8u2h2.jpeg",
+                          alt: "Rotaract Surabaya Persada"
+                        },
+                        {
+                          label: "📌 Rotaract Club UKDC",
+                          src: "https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/rac%20ukdc-QSsKfqTzyGFCrMsYsT0gJ9se27YoN4.png",
+                          alt: "Rotaract UKDC"
+                        },
+                        {
+                          label: "📌 Interact Club Surabaya Persada",
+                          src: "https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/interact_SuPer-IvHa9HeGwnsXCvRyTtGrMYt7UDwCy3.png",
+                          alt: "Interact Surabaya Persada"
+                        }
+                      ].map((item, index) => (
+                        <li key={index} className="flex items-center gap-4">
+                          <span className="min-w-[220px]">{item.label}</span>
+                          <img
+                            src={item.src}
+                            alt={item.alt}
+                            className="w-24 h-24 object-contain rounded-lg shadow-md cursor-pointer hover:scale-105 transition"
+                            onClick={() => {
+                              setModalImageSrc(item.src);
+                              setModalImageAlt(item.alt);
+                              setShowImageModal(true);
+                            }}
+                          />
+                        </li>
+                      ))}
+                    </ul>
+                  </span>
+                </span>
+              </li>
 
-  {/* Garis pembatas */}
-  <hr className="border-t border-gray-300 my-4" />
+              <li className="flex gap-2 items-start">
+                👶 <span><strong>Maternal & Child Health</strong></span>
+              </li>
+            </ul>
 
-  {/* Family Involvement */}
-  <h4 className="text-lg font-semibold text-purple-800 mb-1">Family Rotary Involvement</h4>
-  <p className="text-gray-800">
-    My mother has been an active Rotarian with <strong>Rotary Club of Surabaya Persada</strong> since <strong>2024 – Present</strong>.
-  </p>
-</div>
-    </motion.div>
+            <hr className="border-t border-gray-300 my-4" />
 
-    {/* Exchange Growth Chart */}
-    <div className="bg-white rounded-xl p-8 shadow-lg mt-8 max-w-5xl w-full mx-auto">
-      <h3 className="text-2xl font-semibold text-purple-900 mb-4">Exchange Growth Chart</h3>
-      <div className="flex flex-col md:flex-row gap-8 items-start justify-center">
-        {/* Line Chart */}
-        <div className="flex-1 min-w-0">
-          <div className="bg-white rounded-lg p-4 shadow w-full" style={{ height: 280 }}>
-            <Line
-              data={{
-                labels: [
-                  "2019-2020",
-                  "2020-2021",
-                  "2021-2022",
-                  "2022-2023",
-                  "2023-2024"
-                ],
-                datasets: [
-                  {
-                    label: "Inbound",
-                    data: [0, 0, 0, 1, 4],
-                    borderColor: "#a78bfa",
-                    backgroundColor: "rgba(167,139,250,0.2)",
-                    tension: 0.4,
-                    pointBackgroundColor: "#7c3aed",
-                    pointBorderColor: "#7c3aed",
-                    fill: true,
-                  },
-                  {
-                    label: "Outbound",
-                    data: [0, 0, 0, 1, 4],
-                    borderColor: "#f472b6",
-                    backgroundColor: "rgba(244,114,182,0.2)",
-                    tension: 0.4,
-                    pointBackgroundColor: "#db2777",
-                    pointBorderColor: "#db2777",
-                    fill: true,
-                  },
-                ],
-              }}
-              options={{
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                  legend: { display: true, position: "top" as const },
-                  tooltip: { enabled: true },
-                },
-                scales: {
-                  x: {
-                    title: { display: true, text: "Year" },
-                  },
-                  y: {
-                    beginAtZero: true,
-                    min: 0,
-                    max: 10, // batas atas sumbu Y menjadi 10
-                    ticks: { stepSize: 1 },
-                    title: { display: true, text: "Number of Students" },
-                  },
-                },
-              }}
-              height={260}
-              width={600}
-            />
+            <h4 className="text-lg font-semibold text-purple-800 mb-1">Family Rotary Involvement</h4>
+            <p className="text-gray-800">
+              My mother has been an active Rotarian with <strong>Rotary Club of Surabaya Persada</strong> since <strong>2024 – Present</strong>.
+            </p>
           </div>
-        </div>
-
-        {/* Pie Chart */}
-        <div className="flex flex-col items-center justify-center w-full md:w-[340px]">
-          <div className="bg-white rounded-lg p-4 shadow w-full flex justify-center">
-            <div className="relative" style={{ width: 260, height: 260 }}>
-              <Pie
-                data={{
-                  labels: ["Inbound Total", "Outbound Total"],
-                  datasets: [
-                    {
-                      data: [5, 5],
-                      backgroundColor: ["#a78bfa", "#f472b6"],
-                      borderColor: ["#7c3aed", "#db2777"],
-                      borderWidth: 2,
-                    },
-                  ],
-                }}
-                options={{
-                  responsive: false,
-                  plugins: {
-                    legend: { display: true, position: "bottom" as const },
-                    tooltip: { enabled: true },
-                  },
-                }}
-                width={240}
-                height={240}
-              />
-            </div>
-          </div>
-          {/* Total di luar pie chart */}
-          <div className="mt-4 flex flex-col items-center">
-            <span className="text-lg font-bold text-purple-700">Total</span>
-            <span className="text-2xl font-extrabold text-purple-900">10</span>
-          </div>
-          <div className="mt-4 text-xs text-gray-500 text-center flex gap-4 justify-center">
-            <span className="inline-flex items-center">
-              <span className="inline-block w-3 h-3 rounded-full bg-purple-400 mr-2"></span>Inbound
-            </span>
-            <span className="inline-flex items-center">
-              <span className="inline-block w-3 h-3 rounded-full bg-pink-400 mr-2"></span>Outbound
-            </span>
-          </div>
-        </div>
+        </motion.div>
       </div>
-    </div>
 
-    {/* Youth Organizations Timeline */}
-    <div className="bg-white rounded-xl p-8 shadow-lg mt-8 max-w-3xl w-full mx-auto">
-      <h3 className="text-2xl font-semibold text-purple-900 mb-8">Youth Organizations</h3>
-      <div className="relative w-full h-40 flex flex-col justify-center">
-        {/* Timeline Line */}
-        <div className="absolute left-8 right-8 top-1/2 h-2 bg-purple-100 rounded z-0" style={{ transform: "translateY(-50%)" }}>
-          <div
-            className="absolute h-2 bg-gradient-to-r from-purple-400 to-purple-600 rounded transition-all duration-700"
-            style={{
-              left: 0,
-              top: 0,
-              width: `calc(${timelineStep / (youthOrgs.length - 1)} * 100%)`,
-              maxWidth: "100%",
-            }}
-          />
+      {/* Global Modal Image Viewer */}
+      {showImageModal && (
+        <div className="fixed inset-0 z-50 bg-black bg-opacity-60 flex justify-center items-center">
+          <div className="relative bg-white rounded-xl p-4 max-w-lg w-full">
+            <button
+              className="absolute top-2 right-2 text-gray-500 hover:text-purple-700 text-2xl"
+              onClick={() => setShowImageModal(false)}
+              aria-label="Close"
+            >
+              &times;
+            </button>
+            <img src={modalImageSrc} alt={modalImageAlt} className="rounded-lg w-full h-auto shadow" />
+          </div>
         </div>
-        {/* Year Labels */}
-        <div className="absolute left-8 right-8 top-[60%] flex z-10 pointer-events-none" style={{ justifyContent: "space-between" }}>
-          <span className="text-xs text-purple-700 font-semibold">{youthOrgs[0].year}</span>
-          <span className="text-xs text-purple-700 font-semibold">{youthOrgs[1].year}</span>
-          <span className="text-xs text-purple-700 font-semibold">{youthOrgs[2].year}</span>
-        </div>
-        {/* Timeline Dots & Cards */}
-        <div className="absolute left-8 right-8 top-0 h-full z-10">
-          {youthOrgs.map((org, i) => {
-            // Dot proporsional sesuai jumlah org, bukan tahun
-            const leftPercent = (i / (youthOrgs.length - 1)) * 100;
-            const isActive = timelineStep > i;
-            return (
-              <div
-                key={org.title}
-                className="absolute flex flex-col items-center"
-                style={{
-                  left: `calc(${leftPercent}% - 16px)`,
-                  width: 80,
-                }}
-              >
-                {/* Dot */}
-                <div className="relative z-10 mb-2">
-                  <div className={`rounded-full w-8 h-8 flex items-center justify-center font-bold shadow-lg border-4 transition-all duration-700
-                    ${isActive ? "bg-purple-600 text-white border-purple-200 scale-110 shadow-xl" : "bg-white text-purple-300 border-purple-100 scale-90 opacity-60"}`}>
-                    <span className="text-base">{i + 1}</span>
-                  </div>
-                </div>
-                {/* Card */}
-                <div className={`mt-2 bg-white border border-purple-100 rounded-lg px-4 py-2 shadow text-center transition-all duration-700
-                  ${isActive ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4"}`}>
-                  <div className="font-semibold text-purple-900">{org.title}</div>
-                  <div className="text-xs text-purple-700">{org.date}</div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+      )}
+    </section>
 
       {/* Section 6: Indonesia: Unity in Diversity */}
       <section
