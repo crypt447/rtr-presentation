@@ -732,13 +732,9 @@ export default function Home() {
   <h2 className="text-xl font-semibold text-purple-800 mb-2">Exchange Statistics</h2>
 
   <div className="text-gray-800 mb-4">
-    <p><strong>2022–2023</strong></p>
-    <p>Inbound Students: 1</p>
-    <p>Outbound Students: 1</p>
-
     <p className="mt-3"><strong>2023–2024</strong></p>
-    <p>Inbound Students: 4</p>
-    <p>Outbound Students: 4</p>
+    <p>Inbound Students: 6</p>
+    <p>Outbound Students: 6</p>
   </div>
 
   {/* Garis pembatas */}
@@ -1528,10 +1524,8 @@ export default function Home() {
             </div>
           </motion.div>
         </div>
-      </section>
-
-      {/* Section 10: Closing: Thank You */}
-      <section
+      </section>{/* Section 10: Closing: Thank You */}
+<section
   ref={(el) => (sectionRefs.current[10] = el)}
   className="min-h-screen flex flex-col justify-center items-center px-4 sm:px-6 py-20 bg-gradient-to-b from-white to-purple-50 relative"
 >
@@ -1548,12 +1542,12 @@ export default function Home() {
       className="mb-16"
     >
       <div className="flex flex-col lg:flex-row items-center lg:items-start gap-10 text-left">
-        {/* Foto Kiri */}
-        <div className="flex-shrink-0 relative">
+        {/* Enlarged and Zoomed Photo */}
+        <div className="flex-shrink-0 relative overflow-hidden rounded-full w-72 h-72 sm:w-80 sm:h-80 md:w-96 md:h-96 lg:w-[400px] lg:h-[400px]">
           <img
-            src="https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/me-rM1nnLT7IJG1kDd5HRzk4gI7c9FaSL.jpg"
+            src="https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/foto%20formal%20perpisahan%20gtv.jpg"
             alt="Alif Cryptovan Sinaga"
-            className="w-40 sm:w-52 md:w-60 lg:w-72 rounded-full shadow-xl ring-4 ring-purple-200"
+            className="w-full h-full object-cover transform scale-125"
           />
           {/* Dekorasi kecil */}
           <div className="absolute -top-4 -right-4 text-3xl animate-bounce">✨</div>
@@ -1585,7 +1579,7 @@ export default function Home() {
       </div>
     </motion.div>
   </div>
-</section>
+</section> 
     </main>
   )
 }
