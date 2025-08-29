@@ -28,15 +28,15 @@ export function MapComponent() {
     // Handle window resize to keep canvas properly sized
     const handleResize = () => {
       if (!mapRef.current || !ctx) return
-      
+
       canvas.width = mapRef.current.clientWidth
       canvas.height = mapRef.current.clientHeight
-      
+
       // Redraw the map after resize
       drawMap()
     }
 
-    window.addEventListener('resize', handleResize)
+    window.addEventListener("resize", handleResize)
 
     // Draw a satellite-style map
     const drawMap = () => {
@@ -124,14 +124,12 @@ export function MapComponent() {
       ctx.arc(canvas.width * 0.75, canvas.height * 0.6, 15, 0, Math.PI * 2)
       ctx.fill()
 
-      // Mark Morbecque
-      ctx.fillStyle = "#e74c3c" // Red marker
+      ctx.fillStyle = "#9b59b6" // Purple marker for Annezin
       ctx.beginPath()
       ctx.arc(canvas.width * 0.4, canvas.height * 0.35, 8, 0, Math.PI * 2)
       ctx.fill()
 
-      // Add glow effect to Morbecque marker
-      const morbecqueGlow = ctx.createRadialGradient(
+      const annezinGlow = ctx.createRadialGradient(
         canvas.width * 0.4,
         canvas.height * 0.35,
         0,
@@ -139,9 +137,9 @@ export function MapComponent() {
         canvas.height * 0.35,
         15,
       )
-      morbecqueGlow.addColorStop(0, "rgba(231, 76, 60, 0.8)")
-      morbecqueGlow.addColorStop(1, "rgba(231, 76, 60, 0)")
-      ctx.fillStyle = morbecqueGlow
+      annezinGlow.addColorStop(0, "rgba(155, 89, 182, 0.8)")
+      annezinGlow.addColorStop(1, "rgba(155, 89, 182, 0)")
+      ctx.fillStyle = annezinGlow
       ctx.beginPath()
       ctx.arc(canvas.width * 0.4, canvas.height * 0.35, 15, 0, Math.PI * 2)
       ctx.fill()
@@ -194,8 +192,7 @@ export function MapComponent() {
       ctx.fillText("Surabaya", canvas.width * 0.75, canvas.height * 0.6 + 25)
       ctx.fillText("Indonesia", canvas.width * 0.75, canvas.height * 0.6 + 45)
 
-      // Morbecque label
-      ctx.fillText("Morbecque", canvas.width * 0.4, canvas.height * 0.35 + 25)
+      ctx.fillText("Annezin", canvas.width * 0.4, canvas.height * 0.35 + 25)
       ctx.fillText("France", canvas.width * 0.4, canvas.height * 0.35 + 45)
 
       // Reset shadow
@@ -211,7 +208,7 @@ export function MapComponent() {
     const planeAnimation = () => {
       let progress = 0
       let animationFrameId: number | null = null
-      
+
       const animatePlane = () => {
         if (!ctx) return
 
@@ -270,7 +267,7 @@ export function MapComponent() {
       }
 
       animatePlane()
-      
+
       return () => {
         if (animationFrameId !== null) {
           cancelAnimationFrame(animationFrameId)
@@ -283,13 +280,13 @@ export function MapComponent() {
     // Add UI elements after a small delay to ensure canvas is ready
     setTimeout(() => {
       if (!mapRef.current) return
-      
+
       // Add controls overlay
       const controlsOverlay = document.createElement("div")
       controlsOverlay.className = "absolute top-4 left-4 bg-white bg-opacity-80 p-2 rounded-md shadow-md"
       controlsOverlay.innerHTML = `
         <h4 class="text-sm font-semibold text-gray-700">My Journey</h4>
-        <p class="text-xs text-gray-600">Surabaya, Indonesia → Morbecque, France</p>
+        <p class="text-xs text-gray-600">Surabaya, Indonesia → Annezin, France</p>
       `
       mapRef.current.appendChild(controlsOverlay)
 
@@ -313,9 +310,9 @@ export function MapComponent() {
 
     return () => {
       clearTimeout(loadingTimeout)
-      window.removeEventListener('resize', handleResize)
+      window.removeEventListener("resize", handleResize)
       stopAnimation()
-      
+
       if (mapRef.current) {
         while (mapRef.current.firstChild) {
           mapRef.current.removeChild(mapRef.current.firstChild)

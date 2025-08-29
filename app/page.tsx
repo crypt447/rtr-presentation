@@ -1,10 +1,10 @@
-'use client';
+"use client"
 
-import { useState, useCallback, useEffect, useRef } from 'react'; // Hooks React
-import Image from 'next/image'; // Optimasi gambar Next.js
-import { motion, useAnimation, AnimatePresence } from 'framer-motion'; // Animasi
-import { MapWrapper } from '@/components/map-wrapper'; // Komponen peta custom (buatanmu)
-import { CountUp } from '@/components/count-up'; // Komponen penghitung animasi (buatanmu)
+import { useState, useCallback, useEffect, useRef } from "react" // Hooks React
+import Image from "next/image" // Optimasi gambar Next.js
+import { motion, useAnimation, AnimatePresence } from "framer-motion" // Animasi
+import { MapWrapper } from "@/components/map-wrapper" // Komponen peta custom (buatanmu)
+import { CountUp } from "@/components/count-up" // Komponen penghitung animasi (buatanmu)
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -14,8 +14,7 @@ import {
   ArcElement,
   Tooltip,
   Legend,
-} from 'chart.js'; // Chart.js dan elemennya
-import { Line, Pie } from 'react-chartjs-2'; // Wrapper React untuk Chart.js
+} from "chart.js" // Chart.js dan elemennya
 
 // Register Chart.js agar semua jenis chart bisa dipakai (WAJIB!)
 ChartJS.register(
@@ -25,21 +24,21 @@ ChartJS.register(
   LineElement,
   ArcElement, // Penting untuk Pie chart!
   Tooltip,
-  Legend
-);
+  Legend,
+)
 
 export default function Home() {
-  const [activeSection, setActiveSection] = useState(0);
-  const [nameToggle, setNameToggle] = useState(false);
-  const [parallaxBromo, setParallaxBromo] = useState(1);
-  const [parallaxOther, setParallaxOther] = useState(1);
-  const [showOrientationAlert, setShowOrientationAlert] = useState(false);
-  const [showRotaryFocusImg, setShowRotaryFocusImg] = useState(false);
-  const [showImageModal, setShowImageModal] = useState(false);
-  const [modalImageSrc, setModalImageSrc] = useState('');
-  const [modalImageAlt, setModalImageAlt] = useState('');
-  const nameControls = useAnimation();
-  const sectionRefs = useRef<(HTMLElement | null)[]>([]);
+  const [activeSection, setActiveSection] = useState(0)
+  const [nameToggle, setNameToggle] = useState(false)
+  const [parallaxBromo, setParallaxBromo] = useState(1)
+  const [parallaxOther, setParallaxOther] = useState(1)
+  const [showOrientationAlert, setShowOrientationAlert] = useState(false)
+  const [showRotaryFocusImg, setShowRotaryFocusImg] = useState(false)
+  const [showImageModal, setShowImageModal] = useState(false)
+  const [modalImageSrc, setModalImageSrc] = useState("")
+  const [modalImageAlt, setModalImageAlt] = useState("")
+  const nameControls = useAnimation()
+  const sectionRefs = useRef<(HTMLElement | null)[]>([])
   // Auto toggle name effect
   useEffect(() => {
     const toggleInterval = setInterval(() => {
@@ -65,7 +64,7 @@ export default function Home() {
         const relY = Math.max(0, scrollY - base)
         const scale = 1 + Math.min(relY, 600) / 4000
         setParallaxOther(scale)
-       }
+      }
     }
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
@@ -75,15 +74,18 @@ export default function Home() {
     sectionRefs.current[index]?.scrollIntoView({ behavior: "smooth" })
   }
 
-  const handleKeyDown = useCallback((e: KeyboardEvent) => {
-    if (e.key === "ArrowDown" && activeSection < sectionRefs.current.length - 1) {
-      sectionRefs.current[activeSection + 1]?.scrollIntoView({ behavior: "auto" }) // langsung lompat
-      setActiveSection((prev) => prev + 1)
-    } else if (e.key === "ArrowUp" && activeSection > 0) {
-      sectionRefs.current[activeSection - 1]?.scrollIntoView({ behavior: "auto" }) // langsung lompat
-      setActiveSection((prev) => prev - 1)
-    }
-  }, [activeSection])
+  const handleKeyDown = useCallback(
+    (e: KeyboardEvent) => {
+      if (e.key === "ArrowDown" && activeSection < sectionRefs.current.length - 1) {
+        sectionRefs.current[activeSection + 1]?.scrollIntoView({ behavior: "auto" }) // langsung lompat
+        setActiveSection((prev) => prev + 1)
+      } else if (e.key === "ArrowUp" && activeSection > 0) {
+        sectionRefs.current[activeSection - 1]?.scrollIntoView({ behavior: "auto" }) // langsung lompat
+        setActiveSection((prev) => prev - 1)
+      }
+    },
+    [activeSection],
+  )
 
   useEffect(() => {
     window.addEventListener("keydown", handleKeyDown)
@@ -162,7 +164,9 @@ export default function Home() {
           >
             <h2 className="text-2xl font-bold text-purple-800 mb-4">Landscape Only</h2>
             <p className="text-gray-700 mb-6">
-              This website is designed for presentation and only supports laptops, tablets, or devices in <b>landscape</b> orientation.<br />
+              This website is designed for presentation and only supports laptops, tablets, or devices in{" "}
+              <b>landscape</b> orientation.
+              <br />
               If you continue using <b>portrait</b> mode, the layout may break.
             </p>
             <div className="flex flex-col gap-3 w-full">
@@ -184,28 +188,25 @@ export default function Home() {
       )}
 
       {/* Logo Parallax di Pojok Kanan Atas */}
-<div
-  className="absolute top-6 right-6 sm:top-10 sm:right-10 z-10 transform-gpu motion-safe:animate-float-slow opacity-70"
->
-  <div className="flex gap-4 items-center">
-    <img
-      src="https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/united%20%20for%20good-mtjSIycaRfkPQIldLHDZOcLdfb1TjV.png"
-      alt="Unite for Good"
-      className="w-20 sm:w-28 lg:w-32 pointer-events-none select-none"
-    />
-    <img
-      src="https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/rotrary%20d3420-CDkhjW0nRxChx7VHNrw42ZBULp8TTE.jpg"
-      alt="Rotary Logo"
-      className="w-20 sm:w-28 lg:w-32 pointer-events-none select-none"
-    />
-    <img
-      src="https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/interact_SuPer-IvHa9HeGwnsXCvRyTtGrMYt7UDwCy3.png"
-      alt="Rotary Logo"
-      className="w-20 sm:w-28 lg:w-32 pointer-events-none select-none"
-    />
-  </div>
-</div>
-
+      <div className="absolute top-6 right-6 sm:top-10 sm:right-10 z-10 transform-gpu motion-safe:animate-float-slow opacity-70">
+        <div className="flex gap-4 items-center">
+          <img
+            src="https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/united%20%20for%20good-mtjSIycaRfkPQIldLHDZOcLdfb1TjV.png"
+            alt="Unite for Good"
+            className="w-20 sm:w-28 lg:w-32 pointer-events-none select-none"
+          />
+          <img
+            src="https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/rotrary%20d3420-CDkhjW0nRxChx7VHNrw42ZBULp8TTE.jpg"
+            alt="Rotary Logo"
+            className="w-20 sm:w-28 lg:w-32 pointer-events-none select-none"
+          />
+          <img
+            src="https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/interact_SuPer-IvHa9HeGwnsXCvRyTtGrMYt7UDwCy3.png"
+            alt="Rotary Logo"
+            className="w-20 sm:w-28 lg:w-32 pointer-events-none select-none"
+          />
+        </div>
+      </div>
 
       {/* Navigation Dots */}
       <div className="fixed right-2 sm:right-4 md:right-8 top-1/2 transform -translate-y-1/2 z-50 hidden md:block">
@@ -237,7 +238,7 @@ export default function Home() {
           <i className="bi bi-instagram text-2xl"></i>
         </a>
         <a
-          href="https://snapchat.com"
+          href="https://snapchat.com/web/cryptvn25"
           target="_blank"
           rel="noopener noreferrer"
           className="text-gray-400 hover:text-yellow-400 transition-colors duration-300 hover:scale-110 transform"
@@ -271,7 +272,7 @@ export default function Home() {
           <i className="bi bi-spotify text-2xl"></i>
         </a>
         <a
-          href="https://github.com"
+          href="https://github.com/crypt447"
           target="_blank"
           rel="noopener noreferrer"
           className="text-gray-400 hover:text-black transition-colors duration-300 hover:scale-110 transform"
@@ -299,7 +300,7 @@ export default function Home() {
           <i className="bi bi-instagram text-2xl"></i>
         </a>
         <a
-          href="https://snapchat.com"
+          href="https://snapchat.com/web/cryptvn25"
           target="_blank"
           rel="noopener noreferrer"
           className="text-gray-400 hover:text-yellow-400 transition-colors duration-300"
@@ -333,7 +334,7 @@ export default function Home() {
           <i className="bi bi-spotify text-2xl"></i>
         </a>
         <a
-          href="https://github.com"
+          href="https://github.com/crypt447"
           target="_blank"
           rel="noopener noreferrer"
           className="text-gray-400 hover:text-black transition-colors duration-300"
@@ -420,11 +421,13 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl sm:text-5xl font-serif font-bold text-purple-900 mb-8">A Glimpse into My Journey</h2>
+            <h2 className="text-4xl sm:text-5xl font-serif font-bold text-purple-900 mb-8">
+              A Glimpse into My Journey
+            </h2>
             <p className="text-lg md:text-xl text-gray-700 leading-relaxed">
-              I was born in Jakarta, spent part of my childhood in Jayapura, and grew up in Medan.  
+              I was born in Jakarta, spent part of my childhood in Jayapura, and grew up in Medan.
               <br />
-              Now, I study in Malang — a city where I continue to learn and grow.  
+              Now, I study in Malang — a city where I continue to learn and grow.
               <br />
               Each place has shaped me with unique memories and valuable lessons.
             </p>
@@ -447,15 +450,12 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Section 3: Rotary Surabaya & Morbecque */}
       <section
         ref={(el) => (sectionRefs.current[2] = el)}
         className="min-h-screen flex flex-col justify-center items-center px-4 sm:px-6 py-20 bg-gradient-to-b from-white to-purple-50 relative"
       >
         <div className="w-full max-w-4xl mb-12">
-          <div
-            className="relative w-full h-28 md:h-32 flex items-center justify-center rounded-xl overflow-hidden shadow-lg bg-gradient-to-r from-purple-100 via-white to-purple-100"
-          >
+          <div className="relative w-full h-28 md:h-32 flex items-center justify-center rounded-xl overflow-hidden shadow-lg bg-gradient-to-r from-purple-100 via-white to-purple-100">
             <div className="absolute inset-0 bg-gradient-to-r from-purple-200/80 via-white/80 to-purple-200/80" />
             <div className="relative z-10 w-full flex flex-col items-center">
               <div className="flex flex-row items-center justify-center w-full">
@@ -466,7 +466,7 @@ export default function Home() {
                   <span className="opacity-70">→</span>
                 </span>
                 <span className="font-serif font-bold text-purple-900 text-3xl md:text-5xl tracking-widest drop-shadow-lg ml-2">
-                  MORBECQUE
+                  ANNEZIN
                 </span>
               </div>
               <div className="flex flex-row items-center justify-center w-full mt-2">
@@ -497,29 +497,26 @@ export default function Home() {
                 className="w-full h-64 object-cover"
               />
               <div className="p-6 flex-1 flex flex-col justify-end">
-                <h3 className="text-xl font-semibold text-purple-900 mb-2">
-                  Rotary Surabaya Persada – District 3420
-                </h3>
+                <h3 className="text-xl font-semibold text-purple-900 mb-2">Rotary Surabaya Persada – District 3420</h3>
                 <p className="text-gray-700">
-                  The place where my global Rotary journey began.
+                  The place where my global Rotary journey began. My home club in Indonesia, where I first discovered
+                  the spirit of service above self.
                 </p>
               </div>
             </div>
             <div className="bg-purple-50 rounded-xl overflow-hidden shadow-lg transform transition-transform hover:scale-105 flex flex-col">
               <Image
-                src="https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/morbecque%20night-E1pGcqPYEws6TODrHaiZWR6dTbIQEQ.avif"
-                alt="Rotary Morbecque"
+                src="/images/annezin-mairie.png"
+                alt="Rotary Annezin-Bas Pays"
                 width={600}
                 height={400}
                 className="w-full h-64 object-cover"
               />
               <div className="p-6 flex-1 flex flex-col justify-end">
-                <h3 className="text-xl font-semibold text-purple-900 mb-2">
-                  Rotary Morbecque – District 1520
-                </h3>
+                <h3 className="text-xl font-semibold text-purple-900 mb-2">Rotary Annezin-Bas Pays - District 1520</h3>
                 <p className="text-gray-700">
-                  My future Rotary host in Morbecque, France.<br />
-                  A new beginning of learning, culture, and connection.
+                  My destination in France, where I will continue my Rotary journey.
+                  <br />A new chapter of learning, culture, and connection awaits.
                 </p>
               </div>
             </div>
@@ -567,7 +564,16 @@ export default function Home() {
               className="bg-white rounded-xl overflow-hidden shadow-lg transform transition-transform hover:scale-105 flex flex-col items-center w-full"
               style={{ maxWidth: 400, margin: "0 auto" }}
             >
-              <div style={{ width: "100%", aspectRatio: "4/5", background: "#fff", display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <div
+                style={{
+                  width: "100%",
+                  aspectRatio: "4/5",
+                  background: "#fff",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
                 <Image
                   src="https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/family-H9hFQibvYjEYlR599s3p2ha78Z1V1e.jpg"
                   alt="Family life"
@@ -588,7 +594,16 @@ export default function Home() {
               className="bg-white rounded-xl overflow-hidden shadow-lg transform transition-transform hover:scale-105 flex flex-col items-center w-full"
               style={{ maxWidth: 400, margin: "0 auto" }}
             >
-              <div style={{ width: "100%", aspectRatio: "4/5", background: "#fff", display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <div
+                style={{
+                  width: "100%",
+                  aspectRatio: "4/5",
+                  background: "#fff",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
                 <Image
                   src="https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/gatravic-uz1JPiCi0Ro3yw65MDRPwgSMMilcfM.jpg"
                   alt="Thursina IIBS"
@@ -610,319 +625,351 @@ export default function Home() {
       </section>
 
       {/* Section 5: Rotary Surabaya Persada District 3420 */}
-<section
-  ref={(el) => (sectionRefs.current[4] = el)}
-  className="min-h-screen flex flex-col justify-center items-center px-4 sm:px-6 py-20 bg-purple-50 relative"
->
-  <div className="max-w-4xl z-10">
-    <motion.div
-      initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8 }}
-      viewport={{ once: true }}
-      className="text-center mb-16"
-    >
-      <h2 className="text-4xl sm:text-5xl font-serif font-bold text-purple-900 mb-8">
-        Rotary Surabaya Persada — District 3420
-      </h2>
-    </motion.div>
-
-    <motion.div
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      transition={{ duration: 0.8, delay: 0.3 }}
-      viewport={{ once: true }}
-      className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12"
-    >
-      {/* Club Profile */}
-      <div className="bg-white rounded-xl p-8 shadow-lg">
-        <h3 className="text-2xl font-semibold text-purple-900 mb-4">Club Profile</h3>
-        <p className="text-lg text-gray-700 mb-2">• Established: May 15, 2019</p>
-        <div className="flex items-baseline mb-4">
-          <span className="text-lg text-gray-700">• </span>
-          <div className="flex items-baseline">
-            <CountUp end={45} duration={3} className="text-lg text-gray-700 font-semibold" />
-            <span className="text-lg text-gray-700 ml-2">Active Members</span>
-          </div>
-        </div>
-
-        {/* Rotary Focus Design (No Image) */}
-        <div className="my-8 flex flex-col items-center">
-          <span className="mb-4 text-sm text-purple-700 font-semibold">Rotary Areas of Focus</span>
-          <div className="relative w-[340px] h-[340px] flex items-center justify-center mb-4">
-            {/* Center */}
-            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-purple-600 text-white font-bold rounded-full flex items-center justify-center shadow-lg" style={{ width: 110, height: 110 }}>
-              <span className="text-center text-lg">Rotary<br />Focus</span>
-            </div>
-            {/* 7 Focus Areas */}
-            {[
-              { icon: "🕊️", label: "Peace & Conflict" },
-              { icon: "🩺", label: "Disease Prevention" },
-              { icon: "💧", label: "Water & Sanitation" },
-              { icon: "👩‍👧", label: "Maternal & Child Health" },
-              { icon: "📚", label: "Education & Literacy" },
-              { icon: "🌱", label: "Community Dev." },
-              { icon: "🌳", label: "Environment" },
-            ].map((item, i, arr) => {
-              const angle = (i / arr.length) * 2 * Math.PI - Math.PI / 2
-              const radius = 135
-              const x = Math.cos(angle) * radius + 170
-              const y = Math.sin(angle) * radius + 170
-              return (
-                <div
-                  key={item.label}
-                  className="absolute flex flex-col items-center"
-                  style={{
-                    left: x - 40,
-                    top: y - 40,
-                    width: 80,
-                    height: 80,
-                  }}
-                >
-                  <div className="bg-white border-2 border-purple-300 rounded-full w-14 h-14 flex items-center justify-center text-2xl shadow">
-                    {item.icon}
-                  </div>
-                  <span className="text-xs text-purple-800 text-center mt-1 font-semibold leading-tight">{item.label}</span>
-                </div>
-              )
-            })}
-          </div>
-          {/* Button to preview original picture */}
-          <button
-            className="px-4 py-2 bg-purple-600 text-white rounded-lg shadow hover:bg-purple-700 transition mb-2"
-            onClick={() => setShowRotaryFocusImg(true)}
-            type="button"
+      <section
+        ref={(el) => (sectionRefs.current[4] = el)}
+        className="min-h-screen flex flex-col justify-center items-center px-4 sm:px-6 py-20 bg-purple-50 relative"
+      >
+        <div className="max-w-4xl z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
           >
-            View Original Picture
-          </button>
-          {/* Modal Preview */}
-          {showRotaryFocusImg && (
-            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60">
-              <div className="bg-white rounded-xl shadow-2xl p-4 max-w-lg w-full flex flex-col items-center relative">
+            <h2 className="text-4xl sm:text-5xl font-serif font-bold text-purple-900 mb-8">
+              Rotary Surabaya Persada — District 3420
+            </h2>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            viewport={{ once: true }}
+            className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12"
+          >
+            {/* Club Profile */}
+            <div className="bg-white rounded-xl p-8 shadow-lg">
+              <h3 className="text-2xl font-semibold text-purple-900 mb-4">Club Profile</h3>
+              <p className="text-lg text-gray-700 mb-2">• Established: May 15, 2019</p>
+              <div className="flex items-baseline mb-4">
+                <span className="text-lg text-gray-700">• </span>
+                <div className="flex items-baseline">
+                  <CountUp end={45} duration={3} className="text-lg text-gray-700 font-semibold" />
+                  <span className="text-lg text-gray-700 ml-2">Active Members</span>
+                </div>
+              </div>
+
+              {/* Rotary Focus Design (No Image) */}
+              <div className="my-8 flex flex-col items-center">
+                <span className="mb-4 text-sm text-purple-700 font-semibold">Rotary Areas of Focus</span>
+                <div className="relative w-[340px] h-[340px] flex items-center justify-center mb-4">
+                  {/* Center */}
+                  <div
+                    className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-purple-600 text-white font-bold rounded-full flex items-center justify-center shadow-lg"
+                    style={{ width: 110, height: 110 }}
+                  >
+                    <span className="text-center text-lg">
+                      Rotary
+                      <br />
+                      Focus
+                    </span>
+                  </div>
+                  {/* 7 Focus Areas */}
+                  {[
+                    { icon: "🕊️", label: "Peace & Conflict" },
+                    { icon: "🩺", label: "Disease Prevention" },
+                    { icon: "💧", label: "Water & Sanitation" },
+                    { icon: "👩‍👧", label: "Maternal & Child Health" },
+                    { icon: "📚", label: "Education & Literacy" },
+                    { icon: "🌱", label: "Community Dev." },
+                    { icon: "🌳", label: "Environment" },
+                  ].map((item, i, arr) => {
+                    const angle = (i / arr.length) * 2 * Math.PI - Math.PI / 2
+                    const radius = 135
+                    const x = Math.cos(angle) * radius + 170
+                    const y = Math.sin(angle) * radius + 170
+                    return (
+                      <div
+                        key={item.label}
+                        className="absolute flex flex-col items-center"
+                        style={{
+                          left: x - 40,
+                          top: y - 40,
+                          width: 80,
+                          height: 80,
+                        }}
+                      >
+                        <div className="bg-white border-2 border-purple-300 rounded-full w-14 h-14 flex items-center justify-center text-2xl shadow">
+                          {item.icon}
+                        </div>
+                        <span className="text-xs text-purple-800 text-center mt-1 font-semibold leading-tight">
+                          {item.label}
+                        </span>
+                      </div>
+                    )
+                  })}
+                </div>
+                {/* Button to preview original picture */}
                 <button
-                  className="absolute top-2 right-2 text-gray-500 hover:text-purple-700 text-2xl"
-                  onClick={() => setShowRotaryFocusImg(false)}
-                  aria-label="Close"
+                  className="px-4 py-2 bg-purple-600 text-white rounded-lg shadow hover:bg-purple-700 transition mb-2"
+                  onClick={() => setShowRotaryFocusImg(true)}
                   type="button"
                 >
-                  &times;
+                  View Original Picture
                 </button>
-                <Image
-                  src="https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/rotary%20focus%20area-T6PGMUCGC4gE1FtpuSF87gnpWdiGQB.jpg"
-                  alt="Rotary Areas of Focus"
-                  width={600}
-                  height={400}
-                  className="rounded-lg shadow-lg"
-                  style={{ maxWidth: 500, height: "auto" }}
-                />
+                {/* Modal Preview */}
+                {showRotaryFocusImg && (
+                  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60">
+                    <div className="bg-white rounded-xl shadow-2xl p-4 max-w-lg w-full flex flex-col items-center relative">
+                      <button
+                        className="absolute top-2 right-2 text-gray-500 hover:text-purple-700 text-2xl"
+                        onClick={() => setShowRotaryFocusImg(false)}
+                        aria-label="Close"
+                        type="button"
+                      >
+                        &times;
+                      </button>
+                      <Image
+                        src="https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/rotary%20focus%20area-T6PGMUCGC4gE1FtpuSF87gnpWdiGQB.jpg"
+                        alt="Rotary Areas of Focus"
+                        width={600}
+                        height={400}
+                        className="rounded-lg shadow-lg"
+                        style={{ maxWidth: 500, height: "auto" }}
+                      />
+                    </div>
+                  </div>
+                )}
               </div>
+
+              <p className="text-gray-700 italic">
+                Rotary Surabaya Persada has guided me to serve and to grow.
+                <br />
+                Now, it's my turn to represent with pride.
+              </p>
             </div>
-          )}
-        </div>
 
-        <p className="text-gray-700 italic">
-          Rotary Surabaya Persada has guided me to serve and to grow.
-          <br />
-          Now, it's my turn to represent with pride.
-        </p>
-      </div>
+            {/* Exchange Statistics */}
+            <div className="p-4 rounded-xl bg-white shadow">
+              <h2 className="text-xl font-semibold text-purple-800 mb-2">Exchange Statistics</h2>
 
-      {/* Exchange Statistics */}
-<div className="p-4 rounded-xl bg-white shadow">
-  <h2 className="text-xl font-semibold text-purple-800 mb-2">Exchange Statistics</h2>
+              <div className="text-gray-800 mb-4">
+                <p className="mt-3">
+                  <strong>2025-2026</strong>
+                </p>
+                <p>Inbound Students: 6</p>
+                <p>Outbound Students: 6</p>
+              </div>
 
-  <div className="text-gray-800 mb-4">
-    <p className="mt-3"><strong>2023–2024</strong></p>
-    <p>Inbound Students: 6</p>
-    <p>Outbound Students: 6</p>
-  </div>
+              {/* Garis pembatas */}
+              <hr className="border-t border-gray-300 my-4" />
 
-  {/* Garis pembatas */}
-  <hr className="border-t border-gray-300 my-4" />
+              {/* Judul Fokus Area */}
+              <h4 className="text-lg font-semibold text-purple-800 mb-2">🎯 Focus Areas of Rotary Surabaya Persada</h4>
 
-  {/* Judul Fokus Area */}
-<h4 className="text-lg font-semibold text-purple-800 mb-2">
-  🎯 Focus Areas of Rotary Surabaya Persada
-</h4>
+              <ul className="ml-4 text-gray-800 space-y-2">
+                {/* Literacy */}
+                <li className="flex gap-2 items-start">
+                  📚{" "}
+                  <span className="flex flex-col gap-2">
+                    <strong>Basic Education & Literacy</strong>
+                    <img
+                      src="https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/literacy%20rotary-ddV9mzlPRg23d4Gx2W6bv4ElyLnXmH.jpg"
+                      alt="Literacy Rotary"
+                      className="w-32 h-32 object-cover rounded-lg shadow-md cursor-pointer hover:scale-105 transition"
+                      onClick={() => {
+                        setModalImageSrc(
+                          "https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/literacy%20rotary-ddV9mzlPRg23d4Gx2W6bv4ElyLnXmH.jpg",
+                        )
+                        setModalImageAlt("Basic Education & Literacy")
+                        setShowImageModal(true)
+                      }}
+                    />
+                  </span>
+                </li>
 
-<ul className="ml-4 text-gray-800 space-y-2">
-
-  {/* Literacy */}
-  <li className="flex gap-2 items-start">
-    📚 <span className="flex flex-col gap-2">
-      <strong>Basic Education & Literacy</strong>
-      <img
-        src="https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/literacy%20rotary-ddV9mzlPRg23d4Gx2W6bv4ElyLnXmH.jpg"
-        alt="Literacy Rotary"
-        className="w-32 h-32 object-cover rounded-lg shadow-md cursor-pointer hover:scale-105 transition"
-        onClick={() => {
-          setModalImageSrc("https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/literacy%20rotary-ddV9mzlPRg23d4Gx2W6bv4ElyLnXmH.jpg")
-          setModalImageAlt("Basic Education & Literacy")
-          setShowImageModal(true)
-        }}
-      />
-    </span>
-  </li>
-
-  {/* Youth Empowerment */}
-  <li className="flex gap-2 items-start">
-    👧 <span>
-      <strong>Youth Empowerment</strong><br />
-      <span className="ml-5 block">
-        Rotary Surabaya Persada actively supports youth through:
-        <ul className="list-disc list-inside text-sm mt-1 ml-2 space-y-4">
-
-          {/* LTEP */}
-          <li className="flex items-center gap-4">
-            <span className="min-w-[220px]">📌 <strong>LTEP</strong> (Long-Term Exchange Program)</span>
-            <img
-              src="https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/RYE-text-color-EN22_20220718-002-xvjGSRStnwD1t1CT6CQfygOHPUPJIO.png"
-              alt="LTEP Rotary Youth Exchange"
-              className="w-24 h-24 object-contain rounded-lg shadow-md cursor-pointer hover:scale-105 transition"
-              onClick={() => {
-                setModalImageSrc("https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/RYE-text-color-EN22_20220718-002-xvjGSRStnwD1t1CT6CQfygOHPUPJIO.png");
-                setModalImageAlt("LTEP Rotary Youth Exchange");
-                setShowImageModal(true);
-              }}
-            />
-          </li>
-
-          {/* STEP */}
-          <li className="flex items-center gap-4">
-            <span className="min-w-[220px]">📌 <strong>STEP</strong> – Face-to-Face & Camp programs</span>
-            <img
-              src="https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/RYE-text-color-EN22_20220718-002-xvjGSRStnwD1t1CT6CQfygOHPUPJIO.png"
-              alt="STEP Rotary Youth Exchange"
-              className="w-24 h-24 object-contain rounded-lg shadow-md cursor-pointer hover:scale-105 transition"
-              onClick={() => {
-                setModalImageSrc("https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/RYE-text-color-EN22_20220718-002-xvjGSRStnwD1t1CT6CQfygOHPUPJIO.png");
-                setModalImageAlt("STEP Rotary Youth Exchange");
-                setShowImageModal(true);
-              }}
-            />
-          </li>
-
-          {/* Clubs */}
-          {[
-            {
-              label: "Rotaract Club Surabaya Persada",
-              src: "https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/Logo_Creator__print%20%283%29-TFDVvy9yDeqEtTyxNoHRk6zlS8u2h2.jpeg",
-              alt: "Rotaract Surabaya Persada",
-            },
-            {
-              label: "Rotaract Club UKDC",
-              src: "https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/rac%20ukdc-QSsKfqTzyGFCrMsYsT0gJ9se27YoN4.png",
-              alt: "Rotaract UKDC",
-            },
-            {
-              label: "Interact Club Surabaya Persada",
-              src: "https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/interact_SuPer-IvHa9HeGwnsXCvRyTtGrMYt7UDwCy3.png",
-              alt: "Interact Surabaya Persada",
-            },
-          ].map((item, index) => (
-            <li key={index} className="flex items-center gap-4">
-              <span className="min-w-[220px]">📌 <strong>{item.label}</strong></span>
-              <img
-                src={item.src}
-                alt={item.alt}
-                className="w-24 h-24 object-contain rounded-lg shadow-md cursor-pointer hover:scale-105 transition"
-                onClick={() => {
-                  setModalImageSrc(item.src);
-                  setModalImageAlt(item.alt);
-                  setShowImageModal(true);
-                }}
-              />
-            </li>
-          ))}
-        </ul>
-      </span>
-    </span>
-  </li>
-
-  {/* Maternal & Child Health */}
-  <li className="flex gap-2 items-start">
-                👧 <span>
-                  <strong>Youth Empowerment</strong><br />
-                  <span className="ml-5 block">
-                    Rotary Surabaya Persada actively supports youth through:
-                    <ul className="list-disc list-inside text-sm mt-1 ml-2 space-y-4">
-                      {[
-                        {
-                          label: "📌 LTEP (Long-Term Exchange Program)",
-                          src: "https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/RYE-text-color-EN22_20220718-002-xvjGSRStnwD1t1CT6CQfygOHPUPJIO.png",
-                          alt: "LTEP Rotary Youth Exchange"
-                        },
-                        {
-                          label: "📌 STEP – Face-to-Face & Camp programs",
-                          src: "https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/RYE-text-color-EN22_20220718-002-xvjGSRStnwD1t1CT6CQfygOHPUPJIO.png",
-                          alt: "STEP Rotary Youth Exchange"
-                        },
-                        {
-                          label: "📌 Rotaract Club Surabaya Persada",
-                          src: "https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/Logo_Creator__print%20%283%29-TFDVvy9yDeqEtTyxNoHRk6zlS8u2h2.jpeg",
-                          alt: "Rotaract Surabaya Persada"
-                        },
-                        {
-                          label: "📌 Rotaract Club UKDC",
-                          src: "https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/rac%20ukdc-QSsKfqTzyGFCrMsYsT0gJ9se27YoN4.png",
-                          alt: "Rotaract UKDC"
-                        },
-                        {
-                          label: "📌 Interact Club Surabaya Persada",
-                          src: "https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/interact_SuPer-IvHa9HeGwnsXCvRyTtGrMYt7UDwCy3.png",
-                          alt: "Interact Surabaya Persada"
-                        }
-                      ].map((item, index) => (
-                        <li key={index} className="flex items-center gap-4">
-                          <span className="min-w-[220px]">{item.label}</span>
+                {/* Youth Empowerment */}
+                <li className="flex gap-2 items-start">
+                  👧{" "}
+                  <span>
+                    <strong>Youth Empowerment</strong>
+                    <br />
+                    <span className="ml-5 block">
+                      Rotary Surabaya Persada actively supports youth through:
+                      <ul className="list-disc list-inside text-sm mt-1 ml-2 space-y-4">
+                        {/* LTEP */}
+                        <li className="flex items-center gap-4">
+                          <span className="min-w-[220px]">
+                            📌 <strong>LTEP</strong> (Long-Term Exchange Program)
+                          </span>
                           <img
-                            src={item.src}
-                            alt={item.alt}
+                            src="https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/RYE-text-color-EN22_20220718-002-xvjGSRStnwD1t1CT6CQfygOHPUPJIO.png"
+                            alt="LTEP Rotary Youth Exchange"
                             className="w-24 h-24 object-contain rounded-lg shadow-md cursor-pointer hover:scale-105 transition"
                             onClick={() => {
-                              setModalImageSrc(item.src);
-                              setModalImageAlt(item.alt);
-                              setShowImageModal(true);
+                              setModalImageSrc(
+                                "https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/RYE-text-color-EN22_20220718-002-xvjGSRStnwD1t1CT6CQfygOHPUPJIO.png",
+                              )
+                              setModalImageAlt("LTEP Rotary Youth Exchange")
+                              setShowImageModal(true)
                             }}
                           />
                         </li>
-                      ))}
-                    </ul>
+
+                        {/* STEP */}
+                        <li className="flex items-center gap-4">
+                          <span className="min-w-[220px]">
+                            📌 <strong>STEP</strong> – Face-to-Face & Camp programs
+                          </span>
+                          <img
+                            src="https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/RYE-text-color-EN22_20220718-002-xvjGSRStnwD1t1CT6CQfygOHPUPJIO.png"
+                            alt="STEP Rotary Youth Exchange"
+                            className="w-24 h-24 object-contain rounded-lg shadow-md cursor-pointer hover:scale-105 transition"
+                            onClick={() => {
+                              setModalImageSrc(
+                                "https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/RYE-text-color-EN22_20220718-002-xvjGSRStnwD1t1CT6CQfygOHPUPJIO.png",
+                              )
+                              setModalImageAlt("STEP Rotary Youth Exchange")
+                              setShowImageModal(true)
+                            }}
+                          />
+                        </li>
+
+                        {/* Clubs */}
+                        {[
+                          {
+                            label: "Rotaract Club Surabaya Persada",
+                            src: "https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/Logo_Creator__print%20%283%29-TFDVvy9yDeqEtTyxNoHRk6zlS8u2h2.jpeg",
+                            alt: "Rotaract Surabaya Persada",
+                          },
+                          {
+                            label: "Rotaract Club UKDC",
+                            src: "https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/rac%20ukdc-QSsKfqTzyGFCrMsYsT0gJ9se27YoN4.png",
+                            alt: "Rotaract UKDC",
+                          },
+                          {
+                            label: "Interact Club Surabaya Persada",
+                            src: "https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/interact_SuPer-IvHa9HeGwnsXCvRyTtGrMYt7UDwCy3.png",
+                            alt: "Interact Surabaya Persada",
+                          },
+                        ].map((item, index) => (
+                          <li key={index} className="flex items-center gap-4">
+                            <span className="min-w-[220px]">
+                              📌 <strong>{item.label}</strong>
+                            </span>
+                            <img
+                              src={item.src || "/placeholder.svg"}
+                              alt={item.alt}
+                              className="w-24 h-24 object-contain rounded-lg shadow-md cursor-pointer hover:scale-105 transition"
+                              onClick={() => {
+                                setModalImageSrc(item.src)
+                                setModalImageAlt(item.alt)
+                                setShowImageModal(true)
+                              }}
+                            />
+                          </li>
+                        ))}
+                      </ul>
+                    </span>
                   </span>
-                </span>
-              </li>
+                </li>
 
-              <li className="flex gap-2 items-start">
-                👶 <span><strong>Maternal & Child Health</strong></span>
-              </li>
-            </ul>
+                {/* Maternal & Child Health */}
+                <li className="flex gap-2 items-start">
+                  👧{" "}
+                  <span>
+                    <strong>Youth Empowerment</strong>
+                    <br />
+                    <span className="ml-5 block">
+                      Rotary Surabaya Persada actively supports youth through:
+                      <ul className="list-disc list-inside text-sm mt-1 ml-2 space-y-4">
+                        {[
+                          {
+                            label: "📌 LTEP (Long-Term Exchange Program)",
+                            src: "https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/RYE-text-color-EN22_20220718-002-xvjGSRStnwD1t1CT6CQfygOHPUPJIO.png",
+                            alt: "LTEP Rotary Youth Exchange",
+                          },
+                          {
+                            label: "📌 STEP – Face-to-Face & Camp programs",
+                            src: "https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/RYE-text-color-EN22_20220718-002-xvjGSRStnwD1t1CT6CQfygOHPUPJIO.png",
+                            alt: "STEP Rotary Youth Exchange",
+                          },
+                          {
+                            label: "📌 Rotaract Club Surabaya Persada",
+                            src: "https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/Logo_Creator__print%20%283%29-TFDVvy9yDeqEtTyxNoHRk6zlS8u2h2.jpeg",
+                            alt: "Rotaract Surabaya Persada",
+                          },
+                          {
+                            label: "📌 Rotaract Club UKDC",
+                            src: "https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/rac%20ukdc-QSsKfqTzyGFCrMsYsT0gJ9se27YoN4.png",
+                            alt: "Rotaract UKDC",
+                          },
+                          {
+                            label: "📌 Interact Club Surabaya Persada",
+                            src: "https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/interact_SuPer-IvHa9HeGwnsXCvRyTtGrMYt7UDwCy3.png",
+                            alt: "Interact Surabaya Persada",
+                          },
+                        ].map((item, index) => (
+                          <li key={index} className="flex items-center gap-4">
+                            <span className="min-w-[220px]">{item.label}</span>
+                            <img
+                              src={item.src || "/placeholder.svg"}
+                              alt={item.alt}
+                              className="w-24 h-24 object-contain rounded-lg shadow-md cursor-pointer hover:scale-105 transition"
+                              onClick={() => {
+                                setModalImageSrc(item.src)
+                                setModalImageAlt(item.alt)
+                                setShowImageModal(true)
+                              }}
+                            />
+                          </li>
+                        ))}
+                      </ul>
+                    </span>
+                  </span>
+                </li>
 
-            <hr className="border-t border-gray-300 my-4" />
+                <li className="flex gap-2 items-start">
+                  👶{" "}
+                  <span>
+                    <strong>Maternal & Child Health</strong>
+                  </span>
+                </li>
+              </ul>
 
-            <h4 className="text-lg font-semibold text-purple-800 mb-1">Family Rotary Involvement</h4>
-            <p className="text-gray-800">
-              My mother has been an active Rotarian with <strong>Rotary Club of Surabaya Persada</strong> since <strong>2024 – Present</strong>.
-            </p>
-          </div>
-        </motion.div>
-      </div>
+              <hr className="border-t border-gray-300 my-4" />
 
-      {/* Global Modal Image Viewer */}
-      {showImageModal && (
-        <div className="fixed inset-0 z-50 bg-black bg-opacity-60 flex justify-center items-center">
-          <div className="relative bg-white rounded-xl p-4 max-w-lg w-full">
-            <button
-              className="absolute top-2 right-2 text-gray-500 hover:text-purple-700 text-2xl"
-              onClick={() => setShowImageModal(false)}
-              aria-label="Close"
-            >
-              &times;
-            </button>
-            <img src={modalImageSrc} alt={modalImageAlt} className="rounded-lg w-full h-auto shadow" />
-          </div>
+              <h4 className="text-lg font-semibold text-purple-800 mb-1">Family Rotary Involvement</h4>
+              <p className="text-gray-800">
+                My mother has been an active Rotarian with <strong>Rotary Club of Surabaya Persada</strong> since{" "}
+                <strong>2024 – Present</strong>.
+              </p>
+            </div>
+          </motion.div>
         </div>
-      )}
-    </section>
+
+        {/* Global Modal Image Viewer */}
+        {showImageModal && (
+          <div className="fixed inset-0 z-50 bg-black bg-opacity-60 flex justify-center items-center">
+            <div className="relative bg-white rounded-xl p-4 max-w-lg w-full">
+              <button
+                className="absolute top-2 right-2 text-gray-500 hover:text-purple-700 text-2xl"
+                onClick={() => setShowImageModal(false)}
+                aria-label="Close"
+              >
+                &times;
+              </button>
+              <img
+                src={modalImageSrc || "/placeholder.svg"}
+                alt={modalImageAlt}
+                className="rounded-lg w-full h-auto shadow"
+              />
+            </div>
+          </div>
+        )}
+      </section>
 
       {/* Section 6: Indonesia: Unity in Diversity */}
       <section
@@ -957,52 +1004,52 @@ export default function Home() {
             </div>
             {/* 3 Box di kanan */}
             <motion.div
-  initial="hidden"
-  whileInView="visible"
-  viewport={{ once: true, amount: 0.3 }}
-  className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full"
-  variants={{
-    visible: {
-      transition: {
-        staggerChildren: 0.3,
-      },
-    },
-  }}
->
-  {[
-    {
-      icon: "🛵",
-      title: "Motorbikes Outnumber Cars!",
-      text: "Over 120 million motorcycles shape Indonesia’s unique urban flow, unlike anywhere in Europe.",
-    },
-    {
-      icon: "⛴️",
-      title: "Island-Hopping Daily Routine",
-      text: "With 17,000+ islands, boats and ferries are essential for daily commutes.",
-    },
-    {
-      icon: "🌆",
-      title: "24/7 Urban Energy",
-      text: "Cities buzz nonstop — markets, street food, and nightlife keep the streets alive around the clock.",
-    },
-  ].map(({ icon, title, text }, i) => (
-    <motion.div
-      key={i}
-      className="bg-purple-50 rounded-xl p-8 shadow-lg cursor-pointer"
-      variants={{
-        hidden: { opacity: 0, y: 40, scale: 0.95 },
-        visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.6, ease: "easeOut" } },
-      }}
-      whileHover={{ scale: 1.07, boxShadow: "0 10px 20px rgba(128, 90, 213, 0.4)" }}
-      whileTap={{ scale: 0.95 }}
-      transition={{ type: "spring", stiffness: 300, damping: 20 }}
-    >
-      <div className="text-5xl mb-6">{icon}</div>
-      <h3 className="text-2xl font-semibold text-purple-900 mb-3">{title}</h3>
-      <p className="text-gray-700 text-lg">{text}</p>
-    </motion.div>
-  ))}
-</motion.div>
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.3 }}
+              className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full"
+              variants={{
+                visible: {
+                  transition: {
+                    staggerChildren: 0.3,
+                  },
+                },
+              }}
+            >
+              {[
+                {
+                  icon: "🛵",
+                  title: "Motorbikes Outnumber Cars!",
+                  text: "Over 120 million motorcycles shape Indonesia’s unique urban flow, unlike anywhere in Europe.",
+                },
+                {
+                  icon: "⛴️",
+                  title: "Island-Hopping Daily Routine",
+                  text: "With 17,000+ islands, boats and ferries are essential for daily commutes.",
+                },
+                {
+                  icon: "🌆",
+                  title: "24/7 Urban Energy",
+                  text: "Cities buzz nonstop — markets, street food, and nightlife keep the streets alive around the clock.",
+                },
+              ].map(({ icon, title, text }, i) => (
+                <motion.div
+                  key={i}
+                  className="bg-purple-50 rounded-xl p-8 shadow-lg cursor-pointer"
+                  variants={{
+                    hidden: { opacity: 0, y: 40, scale: 0.95 },
+                    visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.6, ease: "easeOut" } },
+                  }}
+                  whileHover={{ scale: 1.07, boxShadow: "0 10px 20px rgba(128, 90, 213, 0.4)" }}
+                  whileTap={{ scale: 0.95 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                >
+                  <div className="text-5xl mb-6">{icon}</div>
+                  <h3 className="text-2xl font-semibold text-purple-900 mb-3">{title}</h3>
+                  <p className="text-gray-700 text-lg">{text}</p>
+                </motion.div>
+              ))}
+            </motion.div>
           </div>
         </div>
       </section>
@@ -1029,80 +1076,98 @@ export default function Home() {
             </p>
           </motion.div>
           <motion.div
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      transition={{ duration: 0.8, delay: 0.3 }}
-      viewport={{ once: true }}
-      className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
-    >
-      {/* Basketball */}
-      <div className="bg-purple-50 rounded-xl p-8 shadow-lg transform transition-transform hover:scale-105">
-        <div className="text-4xl mb-4">🏀</div>
-        <h3 className="text-xl font-semibold text-purple-900 mb-2">Basketball</h3>
-        <p className="text-gray-700">I'm part of my high school’s core team. Basketball keeps me energized and sharp.</p>
-      </div>
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            viewport={{ once: true }}
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
+          >
+            {/* Basketball */}
+            <div className="bg-purple-50 rounded-xl p-8 shadow-lg transform transition-transform hover:scale-105">
+              <div className="text-4xl mb-4">🏀</div>
+              <h3 className="text-xl font-semibold text-purple-900 mb-2">Basketball</h3>
+              <p className="text-gray-700">
+                I'm part of my high school’s core team. Basketball keeps me energized and sharp.
+              </p>
+            </div>
 
-      {/* Volleyball */}
-      <div className="bg-purple-50 rounded-xl p-8 shadow-lg transform transition-transform hover:scale-105">
-        <div className="text-4xl mb-4">🏐</div>
-        <h3 className="text-xl font-semibold text-purple-900 mb-2">Volleyball</h3>
-        <p className="text-gray-700">I play as a middle blocker and spiker. It's a role that requires strategy, strength, and quick reflexes.</p>
-      </div>
+            {/* Volleyball */}
+            <div className="bg-purple-50 rounded-xl p-8 shadow-lg transform transition-transform hover:scale-105">
+              <div className="text-4xl mb-4">🏐</div>
+              <h3 className="text-xl font-semibold text-purple-900 mb-2">Volleyball</h3>
+              <p className="text-gray-700">
+                I play as a middle blocker and spiker. It's a role that requires strategy, strength, and quick reflexes.
+              </p>
+            </div>
 
-      {/* Swimming */}
-      <div className="bg-purple-50 rounded-xl p-8 shadow-lg transform transition-transform hover:scale-105">
-        <div className="text-4xl mb-4">🏊‍♂️</div>
-        <h3 className="text-xl font-semibold text-purple-900 mb-2">Swimming</h3>
-        <p className="text-gray-700">My favorite strokes are breaststroke and freestyle. Swimming keeps me grounded and refreshed.</p>
-      </div>
+            {/* Swimming */}
+            <div className="bg-purple-50 rounded-xl p-8 shadow-lg transform transition-transform hover:scale-105">
+              <div className="text-4xl mb-4">🏊‍♂️</div>
+              <h3 className="text-xl font-semibold text-purple-900 mb-2">Swimming</h3>
+              <p className="text-gray-700">
+                My favorite strokes are breaststroke and freestyle. Swimming keeps me grounded and refreshed.
+              </p>
+            </div>
 
-      {/* Coding */}
-      <div className="bg-purple-50 rounded-xl p-8 shadow-lg transform transition-transform hover:scale-105">
-        <div className="text-4xl mb-4">💻</div>
-        <h3 className="text-xl font-semibold text-purple-900 mb-2">Coding</h3>
-        <p className="text-gray-700">For me, coding is a space where logic meets creativity — it's how I build, explore, and express ideas through technology.</p>
-      </div>
+            {/* Coding */}
+            <div className="bg-purple-50 rounded-xl p-8 shadow-lg transform transition-transform hover:scale-105">
+              <div className="text-4xl mb-4">💻</div>
+              <h3 className="text-xl font-semibold text-purple-900 mb-2">Coding</h3>
+              <p className="text-gray-700">
+                For me, coding is a space where logic meets creativity — it's how I build, explore, and express ideas
+                through technology.
+              </p>
+            </div>
 
-      {/* Watching Movies */}
-      <div className="bg-purple-50 rounded-xl p-8 shadow-lg transform transition-transform hover:scale-105">
-        <div className="text-4xl mb-4">🎬</div>
-        <h3 className="text-xl font-semibold text-purple-900 mb-2">Watching Movies</h3>
-        <p className="text-gray-700">I love action, adventure, thriler, sci-fi, mystery, romance, and rom-coms — basically everything except horror and boring films!</p>
-      </div>
+            {/* Watching Movies */}
+            <div className="bg-purple-50 rounded-xl p-8 shadow-lg transform transition-transform hover:scale-105">
+              <div className="text-4xl mb-4">🎬</div>
+              <h3 className="text-xl font-semibold text-purple-900 mb-2">Watching Movies</h3>
+              <p className="text-gray-700">
+                I love action, adventure, thriler, sci-fi, mystery, romance, and rom-coms — basically everything except
+                horror and boring films!
+              </p>
+            </div>
 
-      {/* Playing Piano */}
-      <div className="bg-purple-50 rounded-xl p-8 shadow-lg transform transition-transform hover:scale-105">
-        <div className="text-4xl mb-4">🎹</div>
-        <h3 className="text-xl font-semibold text-purple-900 mb-2">Playing Piano</h3>
-        <p className="text-gray-700">I practice on an upright piano. Music helps me focus, relax, and express emotions beyond words.</p>
-      </div>
+            {/* Playing Piano */}
+            <div className="bg-purple-50 rounded-xl p-8 shadow-lg transform transition-transform hover:scale-105">
+              <div className="text-4xl mb-4">🎹</div>
+              <h3 className="text-xl font-semibold text-purple-900 mb-2">Playing Piano</h3>
+              <p className="text-gray-700">
+                I practice on an upright piano. Music helps me focus, relax, and express emotions beyond words.
+              </p>
+            </div>
 
-      {/* Photography */}
-      <div className="bg-purple-50 rounded-xl p-8 shadow-lg transform transition-transform hover:scale-105">
-        <div className="text-4xl mb-4">📷</div>
-        <h3 className="text-xl font-semibold text-purple-900 mb-2">Photography</h3>
-        <p className="text-gray-700">
-          I enjoy experimenting with bulb mode to create stunning light trail shots, and I love using the panning technique to capture motion creatively.
-          Macro photography is also one of my favorites — revealing the beauty in the smallest details.
-        </p>
-      </div>
+            {/* Photography */}
+            <div className="bg-purple-50 rounded-xl p-8 shadow-lg transform transition-transform hover:scale-105">
+              <div className="text-4xl mb-4">📷</div>
+              <h3 className="text-xl font-semibold text-purple-900 mb-2">Photography</h3>
+              <p className="text-gray-700">
+                I enjoy experimenting with bulb mode to create stunning light trail shots, and I love using the panning
+                technique to capture motion creatively. Macro photography is also one of my favorites — revealing the
+                beauty in the smallest details.
+              </p>
+            </div>
 
-      {/* Paragliding */}
-      <div className="bg-purple-50 rounded-xl p-8 shadow-lg transform transition-transform hover:scale-105">
-        <div className="text-4xl mb-4">🪂</div>
-        <h3 className="text-xl font-semibold text-purple-900 mb-2">Paragliding</h3>
-        <p className="text-gray-700">
-          Soaring through the air with a paraglider gives me an unmatched feeling of freedom. It's not just a hobby — it's a moment where I feel completely alive and connected to the sky.
-        </p>
-      </div>
+            {/* Paragliding */}
+            <div className="bg-purple-50 rounded-xl p-8 shadow-lg transform transition-transform hover:scale-105">
+              <div className="text-4xl mb-4">🪂</div>
+              <h3 className="text-xl font-semibold text-purple-900 mb-2">Paragliding</h3>
+              <p className="text-gray-700">
+                Soaring through the air with a paraglider gives me an unmatched feeling of freedom. It's not just a
+                hobby — it's a moment where I feel completely alive and connected to the sky.
+              </p>
+            </div>
 
-      {/* And Many More */}
-      <div className="bg-purple-50 rounded-xl p-8 shadow-lg transform transition-transform hover:scale-105">
-        <div className="text-4xl mb-4">✨</div>
-        <h3 className="text-xl font-semibold text-purple-900 mb-2">...and many more!</h3>
-        <p className="text-gray-700">From reading to exploring new skills — I'm always curious and eager to learn something new.</p>
-      </div>
-    </motion.div>
+            {/* And Many More */}
+            <div className="bg-purple-50 rounded-xl p-8 shadow-lg transform transition-transform hover:scale-105">
+              <div className="text-4xl mb-4">✨</div>
+              <h3 className="text-xl font-semibold text-purple-900 mb-2">...and many more!</h3>
+              <p className="text-gray-700">
+                From reading to exploring new skills — I'm always curious and eager to learn something new.
+              </p>
+            </div>
+          </motion.div>
         </div>
       </section>
 
@@ -1311,6 +1376,51 @@ export default function Home() {
                   </div>
                 </div>
               </div>
+              <div className="snap-center shrink-0">
+                <div className="w-80 bg-white rounded-xl overflow-hidden shadow-lg">
+                  <Image
+                    src="/rawon-traditional-indonesian-black-soup.png"
+                    alt="Rawon"
+                    width={600}
+                    height={400}
+                    className="w-full h-48 object-cover"
+                  />
+                  <div className="p-6">
+                    <h3 className="text-xl font-semibold text-purple-900 mb-2">🍜 Rawon</h3>
+                    <p className="text-gray-700">Traditional East Javanese black soup with tender beef</p>
+                  </div>
+                </div>
+              </div>
+              <div className="snap-center shrink-0">
+                <div className="w-80 bg-white rounded-xl overflow-hidden shadow-lg">
+                  <Image
+                    src="/soda-gembira-colorful-indonesian-layered-drink.png"
+                    alt="Soda Gembira"
+                    width={600}
+                    height={400}
+                    className="w-full h-48 object-cover"
+                  />
+                  <div className="p-6">
+                    <h3 className="text-xl font-semibold text-purple-900 mb-2">🌈 Soda Gembira</h3>
+                    <p className="text-gray-700">Minuman berlapis pink segar dan unik dengan sirup manis</p>
+                  </div>
+                </div>
+              </div>
+              <div className="snap-center shrink-0">
+                <div className="w-80 bg-white rounded-xl overflow-hidden shadow-lg">
+                  <Image
+                    src="/es-cincau-indonesian-grass-jelly-drink.png"
+                    alt="Es Cincau"
+                    width={600}
+                    height={400}
+                    className="w-full h-48 object-cover"
+                  />
+                  <div className="p-6">
+                    <h3 className="text-xl font-semibold text-purple-900 mb-2">🟫 Es Cincau</h3>
+                    <p className="text-gray-700">Refreshing grass jelly drink with coconut milk</p>
+                  </div>
+                </div>
+              </div>
             </div>
             <div className="absolute top-1/2 left-0 transform -translate-y-1/2 bg-gradient-to-r from-purple-50 to-transparent w-12 h-full"></div>
             <div className="absolute top-1/2 right-0 transform -translate-y-1/2 bg-gradient-to-l from-purple-50 to-transparent w-12 h-full"></div>
@@ -1378,7 +1488,8 @@ export default function Home() {
                 <p className="mt-2 text-center text-sm text-gray-600 font-handwriting">School memory</p>
               </div>
               {/* Family Polaroid */}
-              <div className="relative bg-white p-5 shadow-lg transform rotate-[-3deg] hover:rotate-0 transition-all duration-300 flex flex-col items-center"
+              <div
+                className="relative bg-white p-5 shadow-lg transform rotate-[-3deg] hover:rotate-0 transition-all duration-300 flex flex-col items-center"
                 style={{ minWidth: 0, width: "100%", maxWidth: 340 }}
               >
                 <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-10 h-5 bg-gray-300 opacity-80"></div>
@@ -1479,107 +1590,90 @@ export default function Home() {
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
               {[
                 {
-                  src: "https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/bali-sunset-dHque2bsG8TI4tJgjRAqp0dwgAEzk9.jpg",
+                  src: "/images/sunset-bali.png",
                   caption: "Sunset at Bali",
                 },
                 {
-                  src: "https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/jakarta-bOtZZnAMEGmyeV0HxUJ6EVyNE0t2vw.jpg",
-                  caption: "Jakarta cityscape",
+                  src: "/images/jakarta-cityscape.png",
+                  caption: "Jakarta Cityscape",
                 },
                 {
-                  src: "https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/village.jpg",
-                  caption: "Village life",
+                  src: "/images/sumatra-village.png",
+                  caption: "Sumatra Village Life",
                 },
                 {
-                  src: "https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/dance-XJcfgQju6Lq7wVYAoZa1SGF8svH8uX.jpg",
-                  caption: "Traditional dance",
+                  src: "/images/saman-dance.png",
+                  caption: "Traditional Saman Dance",
                 },
                 {
-                  src: "https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/local%20market-ba9P06f25yFEXpOJYstoIl4qmViKaa.JPG",
-                  caption: "Local market",
+                  src: "/images/local-market.png",
+                  caption: "Local Market",
                 },
                 {
-                  src: "https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/raja%20amapt.jpg",
-                  caption: "Island hopping",
+                  src: "/images/island-hopping.png",
+                  caption: "Island Hopping",
                 },
-              ].map((item, i) => (
+              ].map((item, index) => (
                 <div
-                  key={i}
-                  className="relative bg-white p-3 shadow-lg transform hover:scale-105 transition-all duration-300"
-                  style={{ transform: `rotate(${Math.random() * 6 - 3}deg)` }}
+                  key={index}
+                  className="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
                 >
-                  <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-8 h-4 bg-gray-300 opacity-80"></div>
-                  <Image
-                    src={item.src}
+                  <img
+                    src={item.src || "/placeholder.svg"}
                     alt={item.caption}
-                    width={400}
-                    height={400}
-                    className="w-full h-auto"
+                    className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
                   />
-                  <p className="mt-2 text-center text-sm text-gray-600 font-handwriting">
-                    {item.caption}
-                  </p>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                  <div className="absolute bottom-4 left-4 text-white">
+                    <p className="text-lg font-medium">{item.caption}</p>
+                  </div>
                 </div>
               ))}
             </div>
           </motion.div>
-        </div>
-      </section>{/* Section 10: Closing: Thank You */}
-<section
-  ref={(el) => (sectionRefs.current[10] = el)}
-  className="min-h-screen flex flex-col justify-center items-center px-4 sm:px-6 py-20 bg-gradient-to-b from-white to-purple-50 relative"
->
-  <div className="absolute inset-0 overflow-hidden">
-    <div className="absolute top-0 left-0 w-full h-full bg-[url('/placeholder.svg?height=1080&width=1920')] bg-cover bg-center opacity-10 transform scale-110"></div>
-  </div>
 
-  <div className="max-w-6xl w-full z-10 relative">
-    <motion.div
-      initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8 }}
-      viewport={{ once: true }}
-      className="mb-16"
-    >
-      <div className="flex flex-col lg:flex-row items-center lg:items-start gap-10 text-left">
-        {/* Enlarged and Zoomed Photo */}
-        <div className="flex-shrink-0 relative overflow-hidden rounded-full w-72 h-72 sm:w-80 sm:h-80 md:w-96 md:h-96 lg:w-[400px] lg:h-[400px]">
-          <img
-            src="https://g8k6z2mz2pgxmlcl.public.blob.vercel-storage.com/foto%20formal%20perpisahan%20gtv.jpg"
-            alt="Alif Cryptovan Sinaga"
-            className="w-full h-full object-cover transform scale-125"
-          />
-          {/* Dekorasi kecil */}
-          <div className="absolute -top-4 -right-4 text-3xl animate-bounce">✨</div>
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            viewport={{ once: true }}
+            className="mt-20 bg-gradient-to-br from-purple-50 to-pink-50 rounded-3xl p-8 md:p-12"
+          >
+            <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
+              <div className="flex-shrink-0">
+                <div className="w-48 h-48 md:w-56 md:h-56 rounded-2xl overflow-hidden shadow-2xl">
+                  <img
+                    src="/images/eiffel-tower-night.png"
+                    alt="Eiffel Tower at night - France destination"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              </div>
+              <div className="flex-1 text-center md:text-left">
+                <h2 className="text-4xl md:text-6xl font-bold text-purple-600 mb-6">
+                  Merci
+                  <br />
+                  Beaucoup
+                </h2>
+                <p className="text-lg md:text-xl text-gray-700 mb-6 leading-relaxed">
+                  I hope this gave you a glimpse of who I am and what matters to me. I'm excited to meet new people,
+                  make friends, and grow through this journey. Let's learn from each other and create meaningful
+                  experiences together.
+                </p>
+                <div className="text-purple-600 font-medium">
+                  <p className="text-lg italic">— Alif Cryptovan Sinaga</p>
+                  <p className="text-base">Rotary Youth Exchange Student 2025</p>
+                </div>
+              </div>
+            </div>
+          </motion.div>
         </div>
+      </section>
 
-        {/* Teks Kanan */}
-        <div className="flex flex-col justify-start lg:w-2/3 relative">
-          {/* Gradient Behind Merci Beaucoup */}
-          <h2 className="text-6xl sm:text-8xl md:text-9xl font-serif font-bold text-purple-900 mb-6 relative z-10">
-            <span className="relative inline-block">
-              <span className="absolute inset-0 bg-gradient-to-r from-pink-200 via-purple-100 to-pink-200 rounded-lg blur-sm opacity-40 -z-10"></span>
-              Merci Beaucoup
-            </span>
-          </h2>
-
-          <p className="text-lg sm:text-xl text-gray-700 leading-relaxed mb-6">
-            I hope this gave you a glimpse of who I am and what matters to me.
-            <br />
-            I'm excited to meet new people, make friends, and grow through this journey.
-            <br />
-            Let’s learn from each other and create meaningful experiences together.
-          </p>
-          <p className="text-lg sm:text-xl text-purple-700 italic">
-            — Alif Cryptovan Sinaga
-            <br />
-            Rotary Youth Exchange Student 2025
-          </p>
-        </div>
-      </div>
-    </motion.div>
-  </div>
-</section> 
+      {/* Footer */}
+      <footer className="bg-purple-900 text-white text-center py-8">
+        <p className="text-lg">© 2025 Alif Crypto. Made with ❤️ in Indonesia & France.</p>
+      </footer>
     </main>
   )
 }
