@@ -356,7 +356,7 @@ export default function Home() {
           className="text-center z-10 max-w-4xl"
         >
           <h1 className="text-5xl sm:text-7xl md:text-8xl font-serif font-bold text-purple-900 mb-6">
-            Salut, Je m&apos;appelle{" "}
+            Bonsoir, Je m&apos;appelle{" "}
             <span className="relative inline-block min-w-[120px] min-h-[48px] align-middle">
               <AnimatePresence mode="wait">
                 {nameToggle ? (
